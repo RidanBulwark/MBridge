@@ -19,8 +19,6 @@ QueueHandle_t xSensorQueue = NULL;
 static StaticQueue_t xQueueBuffer;
 static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
 
-
-
 int main(void) {
     APP_LOG_Init();
 
@@ -63,13 +61,17 @@ void vApplicationGetTimerTaskMemory(StaticTask_t **ppxTimerTaskTCBBuffer, StackT
     *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
 }
 
+// Add low power sleep feat
 void vApplicationIdleHook( void )
 {
+    /* Put the simulated ARM Cortex into low-power sleep */
+    __asm volatile ( "wfi" );
 }
 /*-----------------------------------------------------------*/
 
 void vApplicationTickHook( void )
 {
+    // Watchdog comes here
 }
 /*-----------------------------------------------------------*/
 
