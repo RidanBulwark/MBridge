@@ -1,6 +1,2 @@
-# Ignore everything inside the build folder...
+# Ignore everything inside the build folder
 build/*
-
-# ...EXCEPT these two files:
-!build/RTOSApp.elf
-!build/RTOSApp.out
