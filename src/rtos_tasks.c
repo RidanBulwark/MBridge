@@ -2,24 +2,23 @@
 #include "task.h"
 #include "queue.h"
 #include "app_hal.h"
-#include "data_types.h"
 #include <stdio.h>
 
 #include "logger.h"
+#include "data_types.h"
 
 #define SENSOR_I2C_ADDR 0x44 // e.g. an SHT31 Temp Sensor
 
 extern QueueHandle_t xSensorQueue; // Declared in main.c
 
 void vTask_I2CSensorReader(void *pvParameters) {
-    uint8_t raw_data[4];
+    uint8_t raw_data[4] = {0};;
     SensorSample_t sample;
-    printf("vTask_I2CSensorReader 1\r\n");
+
     for(;;) {
         // Read 4 bytes starting at register 0x00
-        APP_LOG("[I2C_Task] Reading sensor...\r\n");
-        printf("vTask_I2CSensorReader 2\r\n");
         if (APP_I2C_ReadRegister(SENSOR_I2C_ADDR, 0x00, raw_data, 4) == 0) {
+            APP_LOG("[I2C_Task] Reading sensor: %d\r\n", SENSOR_I2C_ADDR);
             
             // "Process" the raw bytes into human values
             uint16_t raw_temp = (raw_data[0] << 8) | raw_data[1];
@@ -32,7 +31,7 @@ void vTask_I2CSensorReader(void *pvParameters) {
             // Non-blocking push to the processing queue
             xQueueSend(xSensorQueue, &sample, 0); 
         } else {
-            APP_LOG("[I2C_Task] Hardware NACK detected.\r\n");
+            APP_LOG("[I2C_Task] Hardware NACK detected from sensor: %d\r\n", SENSOR_I2C_ADDR);
         }
 
         vTaskDelay(pdMS_TO_TICKS(1000)); // Sample at 1Hz
@@ -41,7 +40,10 @@ void vTask_I2CSensorReader(void *pvParameters) {
 
 void vTask_DataProcessorAndMqtt(void *pvParameters) {
     SensorSample_t sample;
-    char json_buffer[128];
+    char json_buffer[128] = {0};
+
+    char s_temp[16] = {0}; 
+    char s_hum[16] = {0};
 
     for(;;) {
         // Sleep until data appears in the queue
@@ -53,8 +55,11 @@ void vTask_DataProcessorAndMqtt(void *pvParameters) {
             }
 
             snprintf(json_buffer, sizeof(json_buffer), 
-                "{\"device_id\":\"sim_01\", \"temp\":%.2f, \"hum\":%.2f, \"t\":%lu}",
-                sample.temperature, sample.humidity, sample.timestamp_ms);
+                "{\"device_id\":\"sim_01\", \"temp\":%s, \"hum\":%s, \"t\":%u}",
+                float_to_str( sample.temperature, s_temp, sizeof(s_temp) ),
+                float_to_str( sample.humidity,    s_hum,  sizeof(s_hum)  ),
+                sample.timestamp_ms
+            );
 
             APP_MQTT_Publish("telemetry/sensors", json_buffer);
         }
