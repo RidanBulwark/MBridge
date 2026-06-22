@@ -11,7 +11,7 @@ set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-project(RTOSDemo C ASM)
+project(RTOSApp C ASM)
 
 # ---------------------------------------------------------------------------
 # Paths - all relative to this CMakeLists.txt
@@ -66,7 +66,7 @@ set(APP_SOURCES
 # ---------------------------------------------------------------------------
 # Executable
 # ---------------------------------------------------------------------------
-add_executable(rtos_app.elf
+add_executable(RTOSApp.elf
     ${KERNEL_SOURCES}
     ${APP_SOURCES}
 )
@@ -74,7 +74,7 @@ add_executable(rtos_app.elf
 # ---------------------------------------------------------------------------
 # Include directories
 # ---------------------------------------------------------------------------
-target_include_directories(rtos_app.elf PRIVATE
+target_include_directories(RTOSApp.elf PRIVATE
     ${ROOT}/include             # FreeRTOSConfig.h, app_hal.h, logger.h, data_types.h
     ${ROOT}/CMSIS               # core_cm3.h, SMM_MPS2.h etc.
     ${KERNEL_DIR}/include       # FreeRTOS.h, task.h, queue.h, semphr.h etc.
@@ -86,34 +86,34 @@ target_include_directories(rtos_app.elf PRIVATE
 # ---------------------------------------------------------------------------
 set(LINKER_SCRIPT ${ROOT}/scripts/mps2_m3.ld)
 
-target_link_options(rtos_app.elf PRIVATE
+target_link_options(RTOSApp.elf PRIVATE
     ${CPU_FLAGS}
     -T${LINKER_SCRIPT}
-    -Wl,-Map=${CMAKE_BINARY_DIR}/RTOSDemo.map
+    -Wl,-Map=${CMAKE_BINARY_DIR}/RTOSApp.map
     -Wl,--gc-sections
     -nostartfiles
     -specs=nano.specs
     -specs=nosys.specs
 )
 
-set_target_properties(rtos_app.elf PROPERTIES
+set_target_properties(RTOSApp.elf PROPERTIES
     LINK_DEPENDS ${LINKER_SCRIPT}
 )
 
 # ---------------------------------------------------------------------------
 # Post-build: .elf -> .out + print sizes
 # ---------------------------------------------------------------------------
-add_custom_command(TARGET rtos_app.elf POST_BUILD
+add_custom_command(TARGET RTOSApp.elf POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE:rtos_app.elf>
-        ${CMAKE_BINARY_DIR}/RTOSDemo.out
-    COMMENT "Copying rtos_app.elf -> RTOSDemo.out"
+        $<TARGET_FILE:RTOSApp.elf>
+        ${CMAKE_BINARY_DIR}/RTOSApp.out
+    COMMENT "Copying RTOSApp.elf -> RTOSApp.out"
 )
 
 find_program(ARM_SIZE arm-none-eabi-size)
 if(ARM_SIZE)
-    add_custom_command(TARGET rtos_app.elf POST_BUILD
-        COMMAND ${ARM_SIZE} $<TARGET_FILE:rtos_app.elf>
+    add_custom_command(TARGET RTOSApp.elf POST_BUILD
+        COMMAND ${ARM_SIZE} $<TARGET_FILE:RTOSApp.elf>
         COMMENT "Section sizes:"
     )
 endif()
@@ -127,9 +127,9 @@ add_custom_target(run
         -monitor null
         -semihosting
         -semihosting-config enable=on,target=native
-        -kernel ${CMAKE_BINARY_DIR}/rtos_app.elf
+        -kernel ${CMAKE_BINARY_DIR}/RTOSApp.elf
         -serial stdio
         -nographic
-    DEPENDS rtos_app.elf
+    DEPENDS RTOSApp.elf
     COMMENT "Launching QEMU..."
 )

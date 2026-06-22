@@ -117,17 +117,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named rtos_app.elf
+# Target rules for targets named RTOSApp.elf
 
 # Build rule for target.
-rtos_app.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rtos_app.elf
-.PHONY : rtos_app.elf
+RTOSApp.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RTOSApp.elf
+.PHONY : RTOSApp.elf
 
 # fast build rule for target.
-rtos_app.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/build
-.PHONY : rtos_app.elf/fast
+RTOSApp.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/build
+.PHONY : RTOSApp.elf/fast
 
 #=============================================================================
 # Target rules for targets named run
@@ -147,7 +147,7 @@ freertos/event_groups.obj: freertos/event_groups.c.obj
 
 # target to build an object file
 freertos/event_groups.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/event_groups.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/event_groups.c.obj
 .PHONY : freertos/event_groups.c.obj
 
 freertos/event_groups.i: freertos/event_groups.c.i
@@ -155,7 +155,7 @@ freertos/event_groups.i: freertos/event_groups.c.i
 
 # target to preprocess a source file
 freertos/event_groups.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/event_groups.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/event_groups.c.i
 .PHONY : freertos/event_groups.c.i
 
 freertos/event_groups.s: freertos/event_groups.c.s
@@ -163,7 +163,7 @@ freertos/event_groups.s: freertos/event_groups.c.s
 
 # target to generate assembly for a file
 freertos/event_groups.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/event_groups.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/event_groups.c.s
 .PHONY : freertos/event_groups.c.s
 
 freertos/list.obj: freertos/list.c.obj
@@ -171,7 +171,7 @@ freertos/list.obj: freertos/list.c.obj
 
 # target to build an object file
 freertos/list.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/list.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/list.c.obj
 .PHONY : freertos/list.c.obj
 
 freertos/list.i: freertos/list.c.i
@@ -179,7 +179,7 @@ freertos/list.i: freertos/list.c.i
 
 # target to preprocess a source file
 freertos/list.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/list.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/list.c.i
 .PHONY : freertos/list.c.i
 
 freertos/list.s: freertos/list.c.s
@@ -187,7 +187,7 @@ freertos/list.s: freertos/list.c.s
 
 # target to generate assembly for a file
 freertos/list.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/list.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/list.c.s
 .PHONY : freertos/list.c.s
 
 freertos/portable/GCC/ARM_CM3/port.obj: freertos/portable/GCC/ARM_CM3/port.c.obj
@@ -195,7 +195,7 @@ freertos/portable/GCC/ARM_CM3/port.obj: freertos/portable/GCC/ARM_CM3/port.c.obj
 
 # target to build an object file
 freertos/portable/GCC/ARM_CM3/port.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.obj
 .PHONY : freertos/portable/GCC/ARM_CM3/port.c.obj
 
 freertos/portable/GCC/ARM_CM3/port.i: freertos/portable/GCC/ARM_CM3/port.c.i
@@ -203,7 +203,7 @@ freertos/portable/GCC/ARM_CM3/port.i: freertos/portable/GCC/ARM_CM3/port.c.i
 
 # target to preprocess a source file
 freertos/portable/GCC/ARM_CM3/port.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.i
 .PHONY : freertos/portable/GCC/ARM_CM3/port.c.i
 
 freertos/portable/GCC/ARM_CM3/port.s: freertos/portable/GCC/ARM_CM3/port.c.s
@@ -211,7 +211,7 @@ freertos/portable/GCC/ARM_CM3/port.s: freertos/portable/GCC/ARM_CM3/port.c.s
 
 # target to generate assembly for a file
 freertos/portable/GCC/ARM_CM3/port.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.s
 .PHONY : freertos/portable/GCC/ARM_CM3/port.c.s
 
 freertos/portable/MemMang/heap_4.obj: freertos/portable/MemMang/heap_4.c.obj
@@ -219,7 +219,7 @@ freertos/portable/MemMang/heap_4.obj: freertos/portable/MemMang/heap_4.c.obj
 
 # target to build an object file
 freertos/portable/MemMang/heap_4.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/MemMang/heap_4.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/portable/MemMang/heap_4.c.obj
 .PHONY : freertos/portable/MemMang/heap_4.c.obj
 
 freertos/portable/MemMang/heap_4.i: freertos/portable/MemMang/heap_4.c.i
@@ -227,7 +227,7 @@ freertos/portable/MemMang/heap_4.i: freertos/portable/MemMang/heap_4.c.i
 
 # target to preprocess a source file
 freertos/portable/MemMang/heap_4.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/MemMang/heap_4.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/portable/MemMang/heap_4.c.i
 .PHONY : freertos/portable/MemMang/heap_4.c.i
 
 freertos/portable/MemMang/heap_4.s: freertos/portable/MemMang/heap_4.c.s
@@ -235,7 +235,7 @@ freertos/portable/MemMang/heap_4.s: freertos/portable/MemMang/heap_4.c.s
 
 # target to generate assembly for a file
 freertos/portable/MemMang/heap_4.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/MemMang/heap_4.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/portable/MemMang/heap_4.c.s
 .PHONY : freertos/portable/MemMang/heap_4.c.s
 
 freertos/queue.obj: freertos/queue.c.obj
@@ -243,7 +243,7 @@ freertos/queue.obj: freertos/queue.c.obj
 
 # target to build an object file
 freertos/queue.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/queue.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/queue.c.obj
 .PHONY : freertos/queue.c.obj
 
 freertos/queue.i: freertos/queue.c.i
@@ -251,7 +251,7 @@ freertos/queue.i: freertos/queue.c.i
 
 # target to preprocess a source file
 freertos/queue.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/queue.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/queue.c.i
 .PHONY : freertos/queue.c.i
 
 freertos/queue.s: freertos/queue.c.s
@@ -259,7 +259,7 @@ freertos/queue.s: freertos/queue.c.s
 
 # target to generate assembly for a file
 freertos/queue.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/queue.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/queue.c.s
 .PHONY : freertos/queue.c.s
 
 freertos/stream_buffer.obj: freertos/stream_buffer.c.obj
@@ -267,7 +267,7 @@ freertos/stream_buffer.obj: freertos/stream_buffer.c.obj
 
 # target to build an object file
 freertos/stream_buffer.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/stream_buffer.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/stream_buffer.c.obj
 .PHONY : freertos/stream_buffer.c.obj
 
 freertos/stream_buffer.i: freertos/stream_buffer.c.i
@@ -275,7 +275,7 @@ freertos/stream_buffer.i: freertos/stream_buffer.c.i
 
 # target to preprocess a source file
 freertos/stream_buffer.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/stream_buffer.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/stream_buffer.c.i
 .PHONY : freertos/stream_buffer.c.i
 
 freertos/stream_buffer.s: freertos/stream_buffer.c.s
@@ -283,7 +283,7 @@ freertos/stream_buffer.s: freertos/stream_buffer.c.s
 
 # target to generate assembly for a file
 freertos/stream_buffer.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/stream_buffer.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/stream_buffer.c.s
 .PHONY : freertos/stream_buffer.c.s
 
 freertos/tasks.obj: freertos/tasks.c.obj
@@ -291,7 +291,7 @@ freertos/tasks.obj: freertos/tasks.c.obj
 
 # target to build an object file
 freertos/tasks.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/tasks.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/tasks.c.obj
 .PHONY : freertos/tasks.c.obj
 
 freertos/tasks.i: freertos/tasks.c.i
@@ -299,7 +299,7 @@ freertos/tasks.i: freertos/tasks.c.i
 
 # target to preprocess a source file
 freertos/tasks.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/tasks.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/tasks.c.i
 .PHONY : freertos/tasks.c.i
 
 freertos/tasks.s: freertos/tasks.c.s
@@ -307,7 +307,7 @@ freertos/tasks.s: freertos/tasks.c.s
 
 # target to generate assembly for a file
 freertos/tasks.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/tasks.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/tasks.c.s
 .PHONY : freertos/tasks.c.s
 
 freertos/timers.obj: freertos/timers.c.obj
@@ -315,7 +315,7 @@ freertos/timers.obj: freertos/timers.c.obj
 
 # target to build an object file
 freertos/timers.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/timers.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/timers.c.obj
 .PHONY : freertos/timers.c.obj
 
 freertos/timers.i: freertos/timers.c.i
@@ -323,7 +323,7 @@ freertos/timers.i: freertos/timers.c.i
 
 # target to preprocess a source file
 freertos/timers.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/timers.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/timers.c.i
 .PHONY : freertos/timers.c.i
 
 freertos/timers.s: freertos/timers.c.s
@@ -331,7 +331,7 @@ freertos/timers.s: freertos/timers.c.s
 
 # target to generate assembly for a file
 freertos/timers.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/timers.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/freertos/timers.c.s
 .PHONY : freertos/timers.c.s
 
 src/app_hal_sim.obj: src/app_hal_sim.c.obj
@@ -339,7 +339,7 @@ src/app_hal_sim.obj: src/app_hal_sim.c.obj
 
 # target to build an object file
 src/app_hal_sim.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/app_hal_sim.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/app_hal_sim.c.obj
 .PHONY : src/app_hal_sim.c.obj
 
 src/app_hal_sim.i: src/app_hal_sim.c.i
@@ -347,7 +347,7 @@ src/app_hal_sim.i: src/app_hal_sim.c.i
 
 # target to preprocess a source file
 src/app_hal_sim.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/app_hal_sim.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/app_hal_sim.c.i
 .PHONY : src/app_hal_sim.c.i
 
 src/app_hal_sim.s: src/app_hal_sim.c.s
@@ -355,7 +355,7 @@ src/app_hal_sim.s: src/app_hal_sim.c.s
 
 # target to generate assembly for a file
 src/app_hal_sim.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/app_hal_sim.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/app_hal_sim.c.s
 .PHONY : src/app_hal_sim.c.s
 
 src/logger.obj: src/logger.c.obj
@@ -363,7 +363,7 @@ src/logger.obj: src/logger.c.obj
 
 # target to build an object file
 src/logger.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/logger.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/logger.c.obj
 .PHONY : src/logger.c.obj
 
 src/logger.i: src/logger.c.i
@@ -371,7 +371,7 @@ src/logger.i: src/logger.c.i
 
 # target to preprocess a source file
 src/logger.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/logger.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/logger.c.i
 .PHONY : src/logger.c.i
 
 src/logger.s: src/logger.c.s
@@ -379,7 +379,7 @@ src/logger.s: src/logger.c.s
 
 # target to generate assembly for a file
 src/logger.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/logger.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/logger.c.s
 .PHONY : src/logger.c.s
 
 src/main.obj: src/main.c.obj
@@ -387,7 +387,7 @@ src/main.obj: src/main.c.obj
 
 # target to build an object file
 src/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/main.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/main.c.obj
 .PHONY : src/main.c.obj
 
 src/main.i: src/main.c.i
@@ -395,7 +395,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -403,7 +403,7 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/main.c.s
 .PHONY : src/main.c.s
 
 src/printf-stdarg.obj: src/printf-stdarg.c.obj
@@ -411,7 +411,7 @@ src/printf-stdarg.obj: src/printf-stdarg.c.obj
 
 # target to build an object file
 src/printf-stdarg.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/printf-stdarg.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/printf-stdarg.c.obj
 .PHONY : src/printf-stdarg.c.obj
 
 src/printf-stdarg.i: src/printf-stdarg.c.i
@@ -419,7 +419,7 @@ src/printf-stdarg.i: src/printf-stdarg.c.i
 
 # target to preprocess a source file
 src/printf-stdarg.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/printf-stdarg.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/printf-stdarg.c.i
 .PHONY : src/printf-stdarg.c.i
 
 src/printf-stdarg.s: src/printf-stdarg.c.s
@@ -427,7 +427,7 @@ src/printf-stdarg.s: src/printf-stdarg.c.s
 
 # target to generate assembly for a file
 src/printf-stdarg.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/printf-stdarg.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/printf-stdarg.c.s
 .PHONY : src/printf-stdarg.c.s
 
 src/rtos_tasks.obj: src/rtos_tasks.c.obj
@@ -435,7 +435,7 @@ src/rtos_tasks.obj: src/rtos_tasks.c.obj
 
 # target to build an object file
 src/rtos_tasks.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/rtos_tasks.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/rtos_tasks.c.obj
 .PHONY : src/rtos_tasks.c.obj
 
 src/rtos_tasks.i: src/rtos_tasks.c.i
@@ -443,7 +443,7 @@ src/rtos_tasks.i: src/rtos_tasks.c.i
 
 # target to preprocess a source file
 src/rtos_tasks.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/rtos_tasks.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/rtos_tasks.c.i
 .PHONY : src/rtos_tasks.c.i
 
 src/rtos_tasks.s: src/rtos_tasks.c.s
@@ -451,7 +451,7 @@ src/rtos_tasks.s: src/rtos_tasks.c.s
 
 # target to generate assembly for a file
 src/rtos_tasks.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/rtos_tasks.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/rtos_tasks.c.s
 .PHONY : src/rtos_tasks.c.s
 
 src/startup.obj: src/startup.c.obj
@@ -459,7 +459,7 @@ src/startup.obj: src/startup.c.obj
 
 # target to build an object file
 src/startup.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/startup.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/startup.c.obj
 .PHONY : src/startup.c.obj
 
 src/startup.i: src/startup.c.i
@@ -467,7 +467,7 @@ src/startup.i: src/startup.c.i
 
 # target to preprocess a source file
 src/startup.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/startup.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/startup.c.i
 .PHONY : src/startup.c.i
 
 src/startup.s: src/startup.c.s
@@ -475,7 +475,7 @@ src/startup.s: src/startup.c.s
 
 # target to generate assembly for a file
 src/startup.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/startup.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTOSApp.elf.dir/build.make CMakeFiles/RTOSApp.elf.dir/src/startup.c.s
 .PHONY : src/startup.c.s
 
 # Help Target
@@ -487,7 +487,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... run"
-	@echo "... rtos_app.elf"
+	@echo "... RTOSApp.elf"
 	@echo "... freertos/event_groups.obj"
 	@echo "... freertos/event_groups.i"
 	@echo "... freertos/event_groups.s"

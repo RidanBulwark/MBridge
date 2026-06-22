@@ -106,6 +106,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/rtos_app.elf.dir/DependInfo.cmake"
+  "CMakeFiles/RTOSApp.elf.dir/DependInfo.cmake"
   "CMakeFiles/run.dir/DependInfo.cmake"
   )

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # This must point to the cross-compiled ARM .elf, NOT the native POSIX binary
-ELF_PATH="./build/rtos_app.elf"
+ELF_PATH="./build/RTOSApp.elf"
 
 if [ ! -f "$ELF_PATH" ]; then
     echo -e "\033[1;31m[ERROR]\033[0m Firmware binary '$ELF_PATH' not found!"

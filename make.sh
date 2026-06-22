@@ -34,4 +34,4 @@ info "Compiling across $(nproc) CPU cores..."
 make -j"$(nproc)"
 
 # (Updated the output name to match the .elf we declared in your CMakeLists!)
-success "Build finished! Firmware located at: ./${BUILD_DIR}/freertos_mps2.elf"
+success "Build finished! Firmware located at: ./${BUILD_DIR}/RTOSApp.elf"

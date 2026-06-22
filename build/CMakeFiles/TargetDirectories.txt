@@ -1,4 +1,4 @@
-/home/ridan/Programming/Projects/MBridge/build/CMakeFiles/rtos_app.elf.dir
+/home/ridan/Programming/Projects/MBridge/build/CMakeFiles/RTOSApp.elf.dir
 /home/ridan/Programming/Projects/MBridge/build/CMakeFiles/run.dir
 /home/ridan/Programming/Projects/MBridge/build/CMakeFiles/edit_cache.dir
 /home/ridan/Programming/Projects/MBridge/build/CMakeFiles/rebuild_cache.dir

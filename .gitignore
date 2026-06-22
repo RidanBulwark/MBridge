@@ -2,5 +2,5 @@
 build/*
 
 # ...EXCEPT these two files:
-!build/freertos_ms2.elf
-!build/freertos_ms2.bin
+!build/RTOSApp.elf
+!build/RTOSApp.out
