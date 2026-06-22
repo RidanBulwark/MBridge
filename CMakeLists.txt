@@ -59,6 +59,7 @@ set(APP_SOURCES
     ${ROOT}/src/rtos_tasks.c
     ${ROOT}/src/app_hal_sim.c
     ${ROOT}/src/logger.c
+    ${ROOT}/src/data_types.c
     ${ROOT}/src/printf-stdarg.c
     ${ROOT}/src/startup.c
 )
