@@ -31,7 +31,7 @@ static void prvUARTInit( void )
 void APP_LOG(const char *format, ...) {
     if(xLogBuffer == NULL) return;
 
-    char stack_buf[LOG_MAX_MSG_LEN];
+    char stack_buf[LOG_MAX_MSG_LEN] = {0};
     va_list args;
 
     va_start(args, format);
@@ -42,7 +42,7 @@ void APP_LOG(const char *format, ...) {
     if(len > 0) {
         // Push to buffer. If the buffer is totally full, wait a maximum of 5ms 
         // for the logger task to clear some space, then drop the packet to save the OS.
-        xMessageBufferSend(xLogBuffer, stack_buf, len, pdMS_TO_TICKS(5));
+        xMessageBufferSend(xLogBuffer, stack_buf, len, pdMS_TO_TICKS(100));
     }
 }
 
@@ -50,7 +50,7 @@ void APP_LOG(const char *format, ...) {
 // 2. THE BACKEND (The Dedicated Consumer Task)
 // =========================================================================
 void vTask_AsyncLogger(void *pvParameters) {
-    char rx_buf[LOG_MAX_MSG_LEN];
+    char rx_buf[LOG_MAX_MSG_LEN] = {0};
 
     for(;;) {
         // Sleep in Blocked state until a task writes to the buffer
