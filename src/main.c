@@ -4,7 +4,10 @@
 #include "task.h"
 #include "queue.h"
 #include "data_types.h"
+#include "logger.h"
+
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
 
 extern void vTask_I2CSensorReader(void *pvParameters);
@@ -16,18 +19,16 @@ QueueHandle_t xSensorQueue = NULL;
 static StaticQueue_t xQueueBuffer;
 static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
 
+
+
 int main(void) {
-    printf("============================================\n");
-    printf(" Booting FreeRTOS POSIX Target Simulator...\n");
-    printf("============================================\n");
+    APP_LOG_Init();
 
     xSensorQueue = xQueueCreateStatic(QUEUE_LENGTH, sizeof(SensorSample_t), ucQueueStorage, &xQueueBuffer);
-
     xTaskCreate(vTask_I2CSensorReader, "I2C_Read", 1024, NULL, 2, NULL);
-    xTaskCreate(vTask_DataProcessorAndMqtt, "MQTT_Tx", 1024, NULL, 1, NULL);
-
+    xTaskCreate(vTask_DataProcessorAndMqtt, "MQTT_Tx", 1024, NULL, 2, NULL);
+ 
     vTaskStartScheduler();
-
     for(;;); // Execution will never reach here
     return 0;
 }

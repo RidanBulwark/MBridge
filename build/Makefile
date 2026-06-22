@@ -117,168 +117,229 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named freertos_mps2.elf
+# Target rules for targets named rtos_app.elf
 
 # Build rule for target.
-freertos_mps2.elf: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 freertos_mps2.elf
-.PHONY : freertos_mps2.elf
+rtos_app.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 rtos_app.elf
+.PHONY : rtos_app.elf
 
 # fast build rule for target.
-freertos_mps2.elf/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/build
-.PHONY : freertos_mps2.elf/fast
+rtos_app.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/build
+.PHONY : rtos_app.elf/fast
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.obj: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.obj
+#=============================================================================
+# Target rules for targets named run
 
-# target to build an object file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.obj
+# Build rule for target.
+run: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run
+.PHONY : run
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.i: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.i
+# fast build rule for target.
+run/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
+.PHONY : run/fast
 
-# target to preprocess a source file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.i
-
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.s: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.s
-
-# target to generate assembly for a file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.c.s
-
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.obj: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.obj
+freertos/event_groups.obj: freertos/event_groups.c.obj
+.PHONY : freertos/event_groups.obj
 
 # target to build an object file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.obj
+freertos/event_groups.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/event_groups.c.obj
+.PHONY : freertos/event_groups.c.obj
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.i: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.i
+freertos/event_groups.i: freertos/event_groups.c.i
+.PHONY : freertos/event_groups.i
 
 # target to preprocess a source file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.i
+freertos/event_groups.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/event_groups.c.i
+.PHONY : freertos/event_groups.c.i
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.s: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.s
+freertos/event_groups.s: freertos/event_groups.c.s
+.PHONY : freertos/event_groups.s
 
 # target to generate assembly for a file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c.s
+freertos/event_groups.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/event_groups.c.s
+.PHONY : freertos/event_groups.c.s
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.obj: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.obj
+freertos/list.obj: freertos/list.c.obj
+.PHONY : freertos/list.obj
 
 # target to build an object file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.obj
+freertos/list.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/list.c.obj
+.PHONY : freertos/list.c.obj
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.i: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.i
+freertos/list.i: freertos/list.c.i
+.PHONY : freertos/list.i
 
 # target to preprocess a source file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.i
+freertos/list.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/list.c.i
+.PHONY : freertos/list.c.i
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.s: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.s
+freertos/list.s: freertos/list.c.s
+.PHONY : freertos/list.s
 
 # target to generate assembly for a file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c.s
+freertos/list.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/list.c.s
+.PHONY : freertos/list.c.s
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.obj: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.obj
+freertos/portable/GCC/ARM_CM3/port.obj: freertos/portable/GCC/ARM_CM3/port.c.obj
+.PHONY : freertos/portable/GCC/ARM_CM3/port.obj
 
 # target to build an object file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.obj
+freertos/portable/GCC/ARM_CM3/port.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.obj
+.PHONY : freertos/portable/GCC/ARM_CM3/port.c.obj
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.i: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.i
+freertos/portable/GCC/ARM_CM3/port.i: freertos/portable/GCC/ARM_CM3/port.c.i
+.PHONY : freertos/portable/GCC/ARM_CM3/port.i
 
 # target to preprocess a source file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.i
+freertos/portable/GCC/ARM_CM3/port.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.i
+.PHONY : freertos/portable/GCC/ARM_CM3/port.c.i
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.s: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.s
+freertos/portable/GCC/ARM_CM3/port.s: freertos/portable/GCC/ARM_CM3/port.c.s
+.PHONY : freertos/portable/GCC/ARM_CM3/port.s
 
 # target to generate assembly for a file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.c.s
+freertos/portable/GCC/ARM_CM3/port.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/GCC/ARM_CM3/port.c.s
+.PHONY : freertos/portable/GCC/ARM_CM3/port.c.s
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.obj: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.obj
+freertos/portable/MemMang/heap_4.obj: freertos/portable/MemMang/heap_4.c.obj
+.PHONY : freertos/portable/MemMang/heap_4.obj
 
 # target to build an object file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.obj
+freertos/portable/MemMang/heap_4.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/MemMang/heap_4.c.obj
+.PHONY : freertos/portable/MemMang/heap_4.c.obj
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.i: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.i
+freertos/portable/MemMang/heap_4.i: freertos/portable/MemMang/heap_4.c.i
+.PHONY : freertos/portable/MemMang/heap_4.i
 
 # target to preprocess a source file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.i
+freertos/portable/MemMang/heap_4.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/MemMang/heap_4.c.i
+.PHONY : freertos/portable/MemMang/heap_4.c.i
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.s: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.s
+freertos/portable/MemMang/heap_4.s: freertos/portable/MemMang/heap_4.c.s
+.PHONY : freertos/portable/MemMang/heap_4.s
 
 # target to generate assembly for a file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.c.s
+freertos/portable/MemMang/heap_4.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/portable/MemMang/heap_4.c.s
+.PHONY : freertos/portable/MemMang/heap_4.c.s
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.obj: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.obj
+freertos/queue.obj: freertos/queue.c.obj
+.PHONY : freertos/queue.obj
 
 # target to build an object file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.obj
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.obj
+freertos/queue.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/queue.c.obj
+.PHONY : freertos/queue.c.obj
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.i: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.i
+freertos/queue.i: freertos/queue.c.i
+.PHONY : freertos/queue.i
 
 # target to preprocess a source file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.i
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.i
+freertos/queue.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/queue.c.i
+.PHONY : freertos/queue.c.i
 
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.s: home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.s
+freertos/queue.s: freertos/queue.c.s
+.PHONY : freertos/queue.s
 
 # target to generate assembly for a file
-home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.s
-.PHONY : home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.c.s
+freertos/queue.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/queue.c.s
+.PHONY : freertos/queue.c.s
+
+freertos/stream_buffer.obj: freertos/stream_buffer.c.obj
+.PHONY : freertos/stream_buffer.obj
+
+# target to build an object file
+freertos/stream_buffer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/stream_buffer.c.obj
+.PHONY : freertos/stream_buffer.c.obj
+
+freertos/stream_buffer.i: freertos/stream_buffer.c.i
+.PHONY : freertos/stream_buffer.i
+
+# target to preprocess a source file
+freertos/stream_buffer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/stream_buffer.c.i
+.PHONY : freertos/stream_buffer.c.i
+
+freertos/stream_buffer.s: freertos/stream_buffer.c.s
+.PHONY : freertos/stream_buffer.s
+
+# target to generate assembly for a file
+freertos/stream_buffer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/stream_buffer.c.s
+.PHONY : freertos/stream_buffer.c.s
+
+freertos/tasks.obj: freertos/tasks.c.obj
+.PHONY : freertos/tasks.obj
+
+# target to build an object file
+freertos/tasks.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/tasks.c.obj
+.PHONY : freertos/tasks.c.obj
+
+freertos/tasks.i: freertos/tasks.c.i
+.PHONY : freertos/tasks.i
+
+# target to preprocess a source file
+freertos/tasks.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/tasks.c.i
+.PHONY : freertos/tasks.c.i
+
+freertos/tasks.s: freertos/tasks.c.s
+.PHONY : freertos/tasks.s
+
+# target to generate assembly for a file
+freertos/tasks.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/tasks.c.s
+.PHONY : freertos/tasks.c.s
+
+freertos/timers.obj: freertos/timers.c.obj
+.PHONY : freertos/timers.obj
+
+# target to build an object file
+freertos/timers.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/timers.c.obj
+.PHONY : freertos/timers.c.obj
+
+freertos/timers.i: freertos/timers.c.i
+.PHONY : freertos/timers.i
+
+# target to preprocess a source file
+freertos/timers.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/timers.c.i
+.PHONY : freertos/timers.c.i
+
+freertos/timers.s: freertos/timers.c.s
+.PHONY : freertos/timers.s
+
+# target to generate assembly for a file
+freertos/timers.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/freertos/timers.c.s
+.PHONY : freertos/timers.c.s
 
 src/app_hal_sim.obj: src/app_hal_sim.c.obj
 .PHONY : src/app_hal_sim.obj
 
 # target to build an object file
 src/app_hal_sim.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/app_hal_sim.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/app_hal_sim.c.obj
 .PHONY : src/app_hal_sim.c.obj
 
 src/app_hal_sim.i: src/app_hal_sim.c.i
@@ -286,7 +347,7 @@ src/app_hal_sim.i: src/app_hal_sim.c.i
 
 # target to preprocess a source file
 src/app_hal_sim.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/app_hal_sim.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/app_hal_sim.c.i
 .PHONY : src/app_hal_sim.c.i
 
 src/app_hal_sim.s: src/app_hal_sim.c.s
@@ -294,15 +355,39 @@ src/app_hal_sim.s: src/app_hal_sim.c.s
 
 # target to generate assembly for a file
 src/app_hal_sim.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/app_hal_sim.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/app_hal_sim.c.s
 .PHONY : src/app_hal_sim.c.s
+
+src/logger.obj: src/logger.c.obj
+.PHONY : src/logger.obj
+
+# target to build an object file
+src/logger.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/logger.c.obj
+.PHONY : src/logger.c.obj
+
+src/logger.i: src/logger.c.i
+.PHONY : src/logger.i
+
+# target to preprocess a source file
+src/logger.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/logger.c.i
+.PHONY : src/logger.c.i
+
+src/logger.s: src/logger.c.s
+.PHONY : src/logger.s
+
+# target to generate assembly for a file
+src/logger.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/logger.c.s
+.PHONY : src/logger.c.s
 
 src/main.obj: src/main.c.obj
 .PHONY : src/main.obj
 
 # target to build an object file
 src/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/main.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/main.c.obj
 .PHONY : src/main.c.obj
 
 src/main.i: src/main.c.i
@@ -310,7 +395,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -318,15 +403,39 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/main.c.s
 .PHONY : src/main.c.s
+
+src/printf-stdarg.obj: src/printf-stdarg.c.obj
+.PHONY : src/printf-stdarg.obj
+
+# target to build an object file
+src/printf-stdarg.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/printf-stdarg.c.obj
+.PHONY : src/printf-stdarg.c.obj
+
+src/printf-stdarg.i: src/printf-stdarg.c.i
+.PHONY : src/printf-stdarg.i
+
+# target to preprocess a source file
+src/printf-stdarg.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/printf-stdarg.c.i
+.PHONY : src/printf-stdarg.c.i
+
+src/printf-stdarg.s: src/printf-stdarg.c.s
+.PHONY : src/printf-stdarg.s
+
+# target to generate assembly for a file
+src/printf-stdarg.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/printf-stdarg.c.s
+.PHONY : src/printf-stdarg.c.s
 
 src/rtos_tasks.obj: src/rtos_tasks.c.obj
 .PHONY : src/rtos_tasks.obj
 
 # target to build an object file
 src/rtos_tasks.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/rtos_tasks.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/rtos_tasks.c.obj
 .PHONY : src/rtos_tasks.c.obj
 
 src/rtos_tasks.i: src/rtos_tasks.c.i
@@ -334,7 +443,7 @@ src/rtos_tasks.i: src/rtos_tasks.c.i
 
 # target to preprocess a source file
 src/rtos_tasks.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/rtos_tasks.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/rtos_tasks.c.i
 .PHONY : src/rtos_tasks.c.i
 
 src/rtos_tasks.s: src/rtos_tasks.c.s
@@ -342,7 +451,7 @@ src/rtos_tasks.s: src/rtos_tasks.c.s
 
 # target to generate assembly for a file
 src/rtos_tasks.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/rtos_tasks.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/rtos_tasks.c.s
 .PHONY : src/rtos_tasks.c.s
 
 src/startup.obj: src/startup.c.obj
@@ -350,7 +459,7 @@ src/startup.obj: src/startup.c.obj
 
 # target to build an object file
 src/startup.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/startup.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/startup.c.obj
 .PHONY : src/startup.c.obj
 
 src/startup.i: src/startup.c.i
@@ -358,7 +467,7 @@ src/startup.i: src/startup.c.i
 
 # target to preprocess a source file
 src/startup.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/startup.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/startup.c.i
 .PHONY : src/startup.c.i
 
 src/startup.s: src/startup.c.s
@@ -366,7 +475,7 @@ src/startup.s: src/startup.c.s
 
 # target to generate assembly for a file
 src/startup.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/src/startup.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/src/startup.c.s
 .PHONY : src/startup.c.s
 
 # Help Target
@@ -377,31 +486,44 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... freertos_mps2.elf"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.obj"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.i"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/list.s"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.obj"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.i"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.s"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.obj"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.i"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.s"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.obj"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.i"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/queue.s"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.obj"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.i"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/tasks.s"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.obj"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.i"
-	@echo "... home/ridan/Programming/FreeRTOS/FreeRTOS/Source/timers.s"
+	@echo "... run"
+	@echo "... rtos_app.elf"
+	@echo "... freertos/event_groups.obj"
+	@echo "... freertos/event_groups.i"
+	@echo "... freertos/event_groups.s"
+	@echo "... freertos/list.obj"
+	@echo "... freertos/list.i"
+	@echo "... freertos/list.s"
+	@echo "... freertos/portable/GCC/ARM_CM3/port.obj"
+	@echo "... freertos/portable/GCC/ARM_CM3/port.i"
+	@echo "... freertos/portable/GCC/ARM_CM3/port.s"
+	@echo "... freertos/portable/MemMang/heap_4.obj"
+	@echo "... freertos/portable/MemMang/heap_4.i"
+	@echo "... freertos/portable/MemMang/heap_4.s"
+	@echo "... freertos/queue.obj"
+	@echo "... freertos/queue.i"
+	@echo "... freertos/queue.s"
+	@echo "... freertos/stream_buffer.obj"
+	@echo "... freertos/stream_buffer.i"
+	@echo "... freertos/stream_buffer.s"
+	@echo "... freertos/tasks.obj"
+	@echo "... freertos/tasks.i"
+	@echo "... freertos/tasks.s"
+	@echo "... freertos/timers.obj"
+	@echo "... freertos/timers.i"
+	@echo "... freertos/timers.s"
 	@echo "... src/app_hal_sim.obj"
 	@echo "... src/app_hal_sim.i"
 	@echo "... src/app_hal_sim.s"
+	@echo "... src/logger.obj"
+	@echo "... src/logger.i"
+	@echo "... src/logger.s"
 	@echo "... src/main.obj"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/printf-stdarg.obj"
+	@echo "... src/printf-stdarg.i"
+	@echo "... src/printf-stdarg.s"
 	@echo "... src/rtos_tasks.obj"
 	@echo "... src/rtos_tasks.i"
 	@echo "... src/rtos_tasks.s"

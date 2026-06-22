@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # This must point to the cross-compiled ARM .elf, NOT the native POSIX binary
-ELF_PATH="build/freertos_mps2.elf"
+ELF_PATH="./build/rtos_app.elf"
 
 if [ ! -f "$ELF_PATH" ]; then
     echo -e "\033[1;31m[ERROR]\033[0m Firmware binary '$ELF_PATH' not found!"
@@ -10,18 +10,14 @@ if [ ! -f "$ELF_PATH" ]; then
     exit 1
 fi
 
-echo -e "\033[1;33m[QEMU]\033[0m Booting virtual ARM Cortex-M3 (MPS2-AN385)..."
-echo -e "\033[1;33m[QEMU]\033[0m Press [Ctrl + A] then [X] to force quit.\n"
+echo -e "\033[1;33m[BASH]\033[0m Booting virtual ARM Cortex-M3 (MPS2-AN385)..."
 echo "------------------------------------------------------------------"
 
-qemu-system-arm \
-    -machine mps2-an385 \
-    -cpu cortex-m3 \
-    -kernel "$ELF_PATH" \
-    -nographic \
-    -serial stdio \
-    -monitor null \
-    -semihosting 
+
+qemu-system-arm -machine mps2-an385 -cpu cortex-m3 -kernel $ELF_PATH\
+                 -monitor none -nographic -serial stdio \
+                -semihosting \
+                -semihosting-config enable=on,target=native
 
 # ANATOMY OF THESE FLAGS (For your knowledge):
 # -machine mps2-an385 : Tells QEMU the exact Memory Map of the motherboard to fake.

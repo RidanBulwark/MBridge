@@ -36,54 +36,49 @@
 * THESE PARAMETERS ARE DESCRIBED WITHIN THE 'CONFIGURATION' SECTION OF THE
 * FreeRTOS API DOCUMENTATION AVAILABLE ON THE FreeRTOS.org WEB SITE.
 *
-* See https://www.freertos.org/a00110.html
+* See http://www.freertos.org/a00110.html
 *----------------------------------------------------------*/
 
-#define configASSERT_DEFINED                             1
-extern void vAssertCalled( void );
-#define configASSERT( x )    if( ( x ) == 0 ) vAssertCalled()
-#define configQUEUE_REGISTRY_SIZE                        20
+#define configGENERATE_RUN_TIME_STATS            0
 
-#ifdef PICOLIBC_TLS
-#define configUSE_PICOLIBC_TLS                           1
-#endif
+#define configUSE_PREEMPTION                     1
+#define configUSE_IDLE_HOOK                      0
+#define configUSE_TICK_HOOK                      1
+#define configCPU_CLOCK_HZ                       ( ( unsigned long ) 25000000 )
+#define configTICK_RATE_HZ                       ( ( TickType_t ) 1000 )
+#define configMINIMAL_STACK_SIZE                 ( ( unsigned short ) 128 )
+#define configTOTAL_HEAP_SIZE                    ( ( size_t ) ( 100 * 1024 ) )
+#define configMAX_TASK_NAME_LEN                  ( 12 )
 
-#define configUSE_PREEMPTION                             1
-#define configUSE_TIME_SLICING                           0
-#define configUSE_PORT_OPTIMISED_TASK_SELECTION          0
+/* TODO TraceRecorder (Step 4): Enable configUSE_TRACE_FACILITY in FreeRTOSConfig.h. */
+#define configUSE_TRACE_FACILITY                 1
 
-#define configUSE_IDLE_HOOK                              1
-#define configUSE_TICK_HOOK                              1
-#define configUSE_DAEMON_TASK_STARTUP_HOOK               0
-#define configCPU_CLOCK_HZ                               ( ( unsigned long ) 20000000 )
-#define configTICK_RATE_HZ                               ( ( TickType_t ) 1000 )
-#define configMINIMAL_STACK_SIZE                         ( ( unsigned short ) 256 )
-#define configTOTAL_HEAP_SIZE                            ( ( size_t ) ( 10 * 1024 ) )
-#define configMAX_TASK_NAME_LEN                          ( 10 )
-#define configUSE_TRACE_FACILITY                         1
-#define configUSE_16_BIT_TICKS                           0
-#define configIDLE_SHOULD_YIELD                          1
-#define configUSE_CO_ROUTINES                            0
+#define configUSE_16_BIT_TICKS                   0
+#define configIDLE_SHOULD_YIELD                  0
+#define configUSE_CO_ROUTINES                    0
+#define configUSE_MUTEXES                        1
+#define configUSE_RECURSIVE_MUTEXES              1
+#define configCHECK_FOR_STACK_OVERFLOW           2
+#define configUSE_MALLOC_FAILED_HOOK             1
+#define configUSE_QUEUE_SETS                     1
+#define configUSE_COUNTING_SEMAPHORES            1
 
-#define configMAX_PRIORITIES                             ( 10 )
-#define configMAX_CO_ROUTINE_PRIORITIES                  ( 2 )
-#define configTIMER_QUEUE_LENGTH                         5
-#define configTIMER_TASK_PRIORITY                        ( configMAX_PRIORITIES - 1 )
-#define configUSE_COUNTING_SEMAPHORES                    1
-#define configSUPPORT_DYNAMIC_ALLOCATION                 1
-#define configSUPPORT_STATIC_ALLOCATION                  1
-#define configSTREAM_BUFFER_TRIGGER_LEVEL_TEST_MARGIN    2
-#define configCHECK_FOR_STACK_OVERFLOW                   2
-#define configALLOW_UNPRIVILEGED_CRITICAL_SECTIONS       0
+#define configMAX_PRIORITIES                     ( 9UL )
+#define configMAX_CO_ROUTINE_PRIORITIES          ( 2 )
+#define configQUEUE_REGISTRY_SIZE                10
+#define configSUPPORT_STATIC_ALLOCATION          1
+
+/* Timer related defines. */
+#define configUSE_TIMERS                         1
+#define configTIMER_TASK_PRIORITY                ( configMAX_PRIORITIES - 4 )
+#define configTIMER_QUEUE_LENGTH                 20
+#define configTIMER_TASK_STACK_DEPTH             ( configMINIMAL_STACK_SIZE * 2 )
+
+#define configUSE_TASK_NOTIFICATIONS             1
+#define configTASK_NOTIFICATION_ARRAY_ENTRIES    3
 
 /* Set the following definitions to 1 to include the API function, or zero
  * to exclude the API function. */
-
-#define configUSE_MALLOC_FAILED_HOOK              1
-#define configUSE_MUTEXES                         1
-#define configUSE_RECURSIVE_MUTEXES               1
-#define configUSE_TIMERS                          1
-#define configTIMER_TASK_STACK_DEPTH              ( configMINIMAL_STACK_SIZE )
 
 #define INCLUDE_vTaskPrioritySet                  1
 #define INCLUDE_uxTaskPriorityGet                 1
@@ -93,44 +88,45 @@ extern void vAssertCalled( void );
 #define INCLUDE_vTaskDelayUntil                   1
 #define INCLUDE_vTaskDelay                        1
 #define INCLUDE_uxTaskGetStackHighWaterMark       1
-#define INCLUDE_uxTaskGetStackHighWaterMark2      1
 #define INCLUDE_xTaskGetSchedulerState            1
 #define INCLUDE_xTimerGetTimerDaemonTaskHandle    1
 #define INCLUDE_xTaskGetIdleTaskHandle            1
-#define INCLUDE_xTaskGetHandle                    1
-#define INCLUDE_eTaskGetState                     1
 #define INCLUDE_xSemaphoreGetMutexHolder          1
+#define INCLUDE_eTaskGetState                     1
 #define INCLUDE_xTimerPendFunctionCall            1
 #define INCLUDE_xTaskAbortDelay                   1
+#define INCLUDE_xTaskGetHandle                    1
 
-unsigned long ulGetRunTimeCounterValue( void ); /* Prototype of function that returns run time counter. */
+/* This demo makes use of one or more example stats formatting functions. These
+ * format the raw data provided by the uxTaskGetSystemState() function in to human
+ * readable ASCII form.  See the notes in the implementation of vTaskList() within
+ * FreeRTOS/Source/tasks.c for limitations. */
+#define configUSE_STATS_FORMATTING_FUNCTIONS      0
 
-#define projCOVERAGE_TEST                              0
+#define configKERNEL_INTERRUPT_PRIORITY           ( 255 )        /* All eight bits as QEMU doesn't model the priority bits. */
 
-#define configKERNEL_INTERRUPT_PRIORITY                255
 
 /* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
  * See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY           4
-#define configMAC_INTERRUPT_PRIORITY                   5
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY             ( 4 )
 
-#define configENFORCE_SYSTEM_CALLS_FROM_KERNEL_ONLY    ( 1 )
+/* Use the Cortex-M3 optimised task selection rather than the generic C code
+ * version. */
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION          1
 
-/* Set configUSE_MPU_WRAPPERS_V1 to 0 to use new MPU wrapper.
- * See https://freertos.org/a00110.html#configUSE_MPU_WRAPPERS_V1 for details. */
-#define configUSE_MPU_WRAPPERS_V1                      ( 0 )
-/* Set configENABLE_ACCESS_CONTROL_LIST to 1 to use access control list.
- * See https://freertos.org/a00110.html#configENABLE_ACCESS_CONTROL_LIST for details. */
-#define configENABLE_ACCESS_CONTROL_LIST               ( 1 )
-/* See https://freertos.org/a00110.html#configPROTECTED_KERNEL_OBJECT_POOL_SIZE for details. */
-#define configPROTECTED_KERNEL_OBJECT_POOL_SIZE        ( 150 )
-/* See https://freertos.org/a00110.html#configSYSTEM_CALL_STACK_SIZE for details. */
-#define configSYSTEM_CALL_STACK_SIZE                   ( 128 )
+/* The Win32 target is capable of running all the tests tasks at the same
+ * time. */
+#define configRUN_ADDITIONAL_TESTS                       1
 
-/* Prototype for the function used to print out.  In this case it prints to the
- |     10 console before the network is connected then a UDP port after the network has
- |      9 connected. */
-extern void vLoggingPrintf( const char * pcFormatString,
-                            ... );
+/* The test that checks the trigger level on stream buffers requires an
+ * allowable margin of error on slower processors (slower than the Win32
+ * machine on which the test is developed). */
+#define configSTREAM_BUFFER_TRIGGER_LEVEL_TEST_MARGIN    4
+
+#define intqHIGHER_PRIORITY      ( configMAX_PRIORITIES - 5 )
+#define bktPRIMARY_PRIORITY      ( configMAX_PRIORITIES - 3 )
+#define bktSECONDARY_PRIORITY    ( configMAX_PRIORITIES - 4 )
+
+#define configENABLE_BACKWARD_COMPATIBILITY 0
 
 #endif /* FREERTOS_CONFIG_H */

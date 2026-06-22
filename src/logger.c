@@ -1,0 +1,76 @@
+#include "FreeRTOS.h"
+#include "task.h"
+#include "message_buffer.h"
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+
+#define UART0_ADDRESS                         ( 0x40004000UL )
+#define UART0_DATA                            ( *( ( ( volatile uint32_t * ) ( UART0_ADDRESS + 0UL ) ) ) )
+#define UART0_STATE                           ( *( ( ( volatile uint32_t * ) ( UART0_ADDRESS + 4UL ) ) ) )
+#define UART0_CTRL                            ( *( ( ( volatile uint32_t * ) ( UART0_ADDRESS + 8UL ) ) ) )
+#define UART0_BAUDDIV                         ( *( ( ( volatile uint32_t * ) ( UART0_ADDRESS + 16UL ) ) ) )
+#define TX_BUFFER_MASK                        ( 1UL )
+
+#define LOG_BUFFER_TOTAL_SIZE  2048
+#define LOG_MAX_MSG_LEN        128
+
+static MessageBufferHandle_t xLogBuffer = NULL;
+static uint8_t ucLogBufferStorage[ LOG_BUFFER_TOTAL_SIZE ];
+static StaticMessageBuffer_t xLogBufferStruct;
+
+static void prvUARTInit( void )
+{
+    UART0_BAUDDIV = 16;
+    UART0_CTRL = 1;
+}
+
+// =========================================================================
+// 1. THE FRONTEND (Called by your Tasks)
+// =========================================================================
+void APP_LOG(const char *format, ...) {
+    if(xLogBuffer == NULL) return;
+
+    char stack_buf[LOG_MAX_MSG_LEN];
+    va_list args;
+
+    va_start(args, format);
+    // Format the string inside the calling task's local stack
+    int len = vsnprintf(stack_buf, LOG_MAX_MSG_LEN, format, args);
+    va_end(args);
+
+    if(len > 0) {
+        // Push to buffer. If the buffer is totally full, wait a maximum of 5ms 
+        // for the logger task to clear some space, then drop the packet to save the OS.
+        xMessageBufferSend(xLogBuffer, stack_buf, len, pdMS_TO_TICKS(5));
+    }
+}
+
+// =========================================================================
+// 2. THE BACKEND (The Dedicated Consumer Task)
+// =========================================================================
+void vTask_AsyncLogger(void *pvParameters) {
+    char rx_buf[LOG_MAX_MSG_LEN];
+
+    for(;;) {
+        // Sleep in Blocked state until a task writes to the buffer
+        size_t bytes_read = xMessageBufferReceive(xLogBuffer, rx_buf, sizeof(rx_buf), portMAX_DELAY);
+
+        if(bytes_read > 0) {
+            // Safely dump to hardware. Because ONLY this task touches stdout/UART, 
+            // it is mathematically impossible for strings to ever get tangled.
+            printf(rx_buf, 1, bytes_read, stdout);
+            fflush(stdout); 
+        }
+    }
+}
+
+// Call this once inside main() before vTaskStartScheduler()
+void APP_LOG_Init(void) {
+    prvUARTInit(); // init UART for printing
+
+    xLogBuffer = xMessageBufferCreateStatic(sizeof(ucLogBufferStorage), ucLogBufferStorage, &xLogBufferStruct);
+    
+    // Give the consumer task the LOWEST possible priority (Priority 1)
+    xTaskCreate(vTask_AsyncLogger, "LogSys", 512, NULL, 1, NULL);
+}

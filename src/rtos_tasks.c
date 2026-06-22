@@ -5,6 +5,8 @@
 #include "data_types.h"
 #include <stdio.h>
 
+#include "logger.h"
+
 #define SENSOR_I2C_ADDR 0x44 // e.g. an SHT31 Temp Sensor
 
 extern QueueHandle_t xSensorQueue; // Declared in main.c
@@ -12,9 +14,11 @@ extern QueueHandle_t xSensorQueue; // Declared in main.c
 void vTask_I2CSensorReader(void *pvParameters) {
     uint8_t raw_data[4];
     SensorSample_t sample;
-
+    printf("vTask_I2CSensorReader 1\r\n");
     for(;;) {
         // Read 4 bytes starting at register 0x00
+        APP_LOG("[I2C_Task] Reading sensor...\r\n");
+        printf("vTask_I2CSensorReader 2\r\n");
         if (APP_I2C_ReadRegister(SENSOR_I2C_ADDR, 0x00, raw_data, 4) == 0) {
             
             // "Process" the raw bytes into human values
@@ -28,7 +32,7 @@ void vTask_I2CSensorReader(void *pvParameters) {
             // Non-blocking push to the processing queue
             xQueueSend(xSensorQueue, &sample, 0); 
         } else {
-            printf("[I2C_Task] Hardware NACK detected.\n");
+            APP_LOG("[I2C_Task] Hardware NACK detected.\r\n");
         }
 
         vTaskDelay(pdMS_TO_TICKS(1000)); // Sample at 1Hz

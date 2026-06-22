@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/ridan/Programming/Projects/MBridge/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/freertos_mps2.elf.dir/all
+all: CMakeFiles/rtos_app.elf.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,61 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/freertos_mps2.elf.dir/clean
+clean: CMakeFiles/rtos_app.elf.dir/clean
+clean: CMakeFiles/run.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/freertos_mps2.elf.dir
+# Target rules for target CMakeFiles/rtos_app.elf.dir
 
 # All Build rule for target.
-CMakeFiles/freertos_mps2.elf.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ridan/Programming/Projects/MBridge/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target freertos_mps2.elf"
-.PHONY : CMakeFiles/freertos_mps2.elf.dir/all
+CMakeFiles/rtos_app.elf.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ridan/Programming/Projects/MBridge/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 "Built target rtos_app.elf"
+.PHONY : CMakeFiles/rtos_app.elf.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/freertos_mps2.elf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ridan/Programming/Projects/MBridge/build/CMakeFiles 11
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/freertos_mps2.elf.dir/all
+CMakeFiles/rtos_app.elf.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ridan/Programming/Projects/MBridge/build/CMakeFiles 15
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/rtos_app.elf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ridan/Programming/Projects/MBridge/build/CMakeFiles 0
-.PHONY : CMakeFiles/freertos_mps2.elf.dir/rule
+.PHONY : CMakeFiles/rtos_app.elf.dir/rule
 
 # Convenience name for target.
-freertos_mps2.elf: CMakeFiles/freertos_mps2.elf.dir/rule
-.PHONY : freertos_mps2.elf
+rtos_app.elf: CMakeFiles/rtos_app.elf.dir/rule
+.PHONY : rtos_app.elf
 
 # clean rule for target.
-CMakeFiles/freertos_mps2.elf.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/freertos_mps2.elf.dir/build.make CMakeFiles/freertos_mps2.elf.dir/clean
-.PHONY : CMakeFiles/freertos_mps2.elf.dir/clean
+CMakeFiles/rtos_app.elf.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/rtos_app.elf.dir/build.make CMakeFiles/rtos_app.elf.dir/clean
+.PHONY : CMakeFiles/rtos_app.elf.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/run.dir
+
+# All Build rule for target.
+CMakeFiles/run.dir/all: CMakeFiles/rtos_app.elf.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ridan/Programming/Projects/MBridge/build/CMakeFiles --progress-num=16 "Built target run"
+.PHONY : CMakeFiles/run.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/run.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ridan/Programming/Projects/MBridge/build/CMakeFiles 16
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/run.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ridan/Programming/Projects/MBridge/build/CMakeFiles 0
+.PHONY : CMakeFiles/run.dir/rule
+
+# Convenience name for target.
+run: CMakeFiles/run.dir/rule
+.PHONY : run
+
+# clean rule for target.
+CMakeFiles/run.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/clean
+.PHONY : CMakeFiles/run.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

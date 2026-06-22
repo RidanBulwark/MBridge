@@ -1,69 +1,135 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.16)
 
-# 1. FORCE-LOCK TO BARE METAL ARM (Must happen BEFORE the project() call)
+# ---------------------------------------------------------------------------
+# Toolchain - must be set before project()
+# ---------------------------------------------------------------------------
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 
-# >>> BYPASS THE LINKER SANITY CHECK <<<
+set(CMAKE_C_COMPILER   arm-none-eabi-gcc)
+set(CMAKE_ASM_COMPILER arm-none-eabi-gcc)
+
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
-set(CMAKE_C_COMPILER "arm-none-eabi-gcc")
-set(CMAKE_ASM_COMPILER "arm-none-eabi-gcc")
+project(RTOSDemo C ASM)
 
-project(freertos_qemu_sim C ASM)
+# ---------------------------------------------------------------------------
+# Paths - all relative to this CMakeLists.txt
+# ---------------------------------------------------------------------------
+set(ROOT            ${CMAKE_CURRENT_SOURCE_DIR})
+set(KERNEL_DIR      ${ROOT}/freertos)
+set(KERNEL_PORT_DIR ${KERNEL_DIR}/portable/GCC/ARM_CM3)
 
-set(CMAKE_C_STANDARD 99)
+# ---------------------------------------------------------------------------
+# Compiler flags
+# ---------------------------------------------------------------------------
+set(CPU_FLAGS -mthumb -mcpu=cortex-m3 -ffreestanding)
 
-# 2. VALIDATE THE ENVIRONMENT VARIABLE
-if(NOT DEFINED ENV{FREERTOS_DIR})
-    message(FATAL_ERROR "\n[ERROR] Environment variable FREERTOS_DIR is missing!\nRun: export FREERTOS_DIR=/path/to/FreeRTOS-Kernel\n")
+add_compile_options(
+    ${CPU_FLAGS}
+    -g3
+    -Os
+    -ffunction-sections
+    -fdata-sections
+    -Wall
+    -Wextra
+    -Wshadow
+    -Wno-unused-value
+)
+
+# ---------------------------------------------------------------------------
+# FreeRTOS kernel sources
+# ---------------------------------------------------------------------------
+set(KERNEL_SOURCES
+    ${KERNEL_DIR}/tasks.c
+    ${KERNEL_DIR}/list.c
+    ${KERNEL_DIR}/queue.c
+    ${KERNEL_DIR}/timers.c
+    ${KERNEL_DIR}/event_groups.c
+    ${KERNEL_DIR}/stream_buffer.c
+    ${KERNEL_DIR}/portable/MemMang/heap_4.c
+    ${KERNEL_PORT_DIR}/port.c
+)
+
+# ---------------------------------------------------------------------------
+# Application sources
+# ---------------------------------------------------------------------------
+set(APP_SOURCES
+    ${ROOT}/src/main.c
+    ${ROOT}/src/rtos_tasks.c
+    ${ROOT}/src/app_hal_sim.c
+    ${ROOT}/src/logger.c
+    ${ROOT}/src/printf-stdarg.c
+    ${ROOT}/src/startup.c
+)
+
+# ---------------------------------------------------------------------------
+# Executable
+# ---------------------------------------------------------------------------
+add_executable(rtos_app.elf
+    ${KERNEL_SOURCES}
+    ${APP_SOURCES}
+)
+
+# ---------------------------------------------------------------------------
+# Include directories
+# ---------------------------------------------------------------------------
+target_include_directories(rtos_app.elf PRIVATE
+    ${ROOT}/include             # FreeRTOSConfig.h, app_hal.h, logger.h, data_types.h
+    ${ROOT}/CMSIS               # core_cm3.h, SMM_MPS2.h etc.
+    ${KERNEL_DIR}/include       # FreeRTOS.h, task.h, queue.h, semphr.h etc.
+    ${KERNEL_PORT_DIR}          # portmacro.h
+)
+
+# ---------------------------------------------------------------------------
+# Linker
+# ---------------------------------------------------------------------------
+set(LINKER_SCRIPT ${ROOT}/scripts/mps2_m3.ld)
+
+target_link_options(rtos_app.elf PRIVATE
+    ${CPU_FLAGS}
+    -T${LINKER_SCRIPT}
+    -Wl,-Map=${CMAKE_BINARY_DIR}/RTOSDemo.map
+    -Wl,--gc-sections
+    -nostartfiles
+    -specs=nano.specs
+    -specs=nosys.specs
+)
+
+set_target_properties(rtos_app.elf PROPERTIES
+    LINK_DEPENDS ${LINKER_SCRIPT}
+)
+
+# ---------------------------------------------------------------------------
+# Post-build: .elf -> .out + print sizes
+# ---------------------------------------------------------------------------
+add_custom_command(TARGET rtos_app.elf POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:rtos_app.elf>
+        ${CMAKE_BINARY_DIR}/RTOSDemo.out
+    COMMENT "Copying rtos_app.elf -> RTOSDemo.out"
+)
+
+find_program(ARM_SIZE arm-none-eabi-size)
+if(ARM_SIZE)
+    add_custom_command(TARGET rtos_app.elf POST_BUILD
+        COMMAND ${ARM_SIZE} $<TARGET_FILE:rtos_app.elf>
+        COMMENT "Section sizes:"
+    )
 endif()
 
-set(FREERTOS_DIR $ENV{FREERTOS_DIR})
-message(STATUS "Using FreeRTOS Kernel from ENV: ${FREERTOS_DIR}")
-
-# 3. SET CORTEX-M3 HARDWARE FLAGS
-set(CPU_FLAGS "-mcpu=cortex-m3 -mthumb")
-set(COMMON_FLAGS "${CPU_FLAGS} -g3 -O0 -Wall -ffunction-sections -fdata-sections")
-
-set(CMAKE_C_FLAGS "${COMMON_FLAGS}" CACHE INTERNAL "")
-set(CMAKE_ASM_FLAGS "${COMMON_FLAGS}" CACHE INTERNAL "")
-
-# --specs=rdimon.specs wires the ARM C-library directly to QEMU's stdout
-set(CMAKE_EXE_LINKER_FLAGS "${CPU_FLAGS} -Wl,--gc-sections --specs=rdimon.specs" CACHE INTERNAL "")
-
-# 4. GATHER FREERTOS KERNEL FILES
-set(FREERTOS_CORE_SOURCES
-    "${FREERTOS_DIR}/tasks.c"
-    "${FREERTOS_DIR}/queue.c"
-    "${FREERTOS_DIR}/list.c"
-    "${FREERTOS_DIR}/timers.c"
-    "${FREERTOS_DIR}/portable/MemMang/heap_4.c"
-    "${FREERTOS_DIR}/portable/GCC/ARM_CM3/port.c"
-)
-
-# 5. GATHER OUR APPLICATION FILES
-set(APP_SOURCES
-    src/main.c
-    src/rtos_tasks.c
-    src/app_hal_sim.c
-    src/startup.c        # <--- SEE IMPORTANT NOTE BELOW
-)
-
-add_executable(freertos_mps2.elf ${FREERTOS_CORE_SOURCES} ${APP_SOURCES})
-
-# 6. ATTACH THE LINKER SCRIPT
-set(LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/scripts/mps2_m3.ld")
-target_link_options(freertos_mps2.elf PRIVATE "-T${LINKER_SCRIPT}")
-
-target_include_directories(freertos_mps2.elf PRIVATE
-    "${CMAKE_SOURCE_DIR}/include"
-    "${FREERTOS_DIR}/include"
-    "${FREERTOS_DIR}/portable/GCC/ARM_CM3"
-)
-
-# 7. BONUS: Automatically generate a .bin alongside the .elf
-add_custom_command(TARGET freertos_mps2.elf POST_BUILD
-    COMMAND arm-none-eabi-objcopy -O binary freertos_mps2.elf freertos_mps2.bin
-    COMMENT "Generated raw binary: freertos_mps2.bin"
+# ---------------------------------------------------------------------------
+# 'cmake --build . --target run'  or  'make run'
+# ---------------------------------------------------------------------------
+add_custom_target(run
+    COMMAND qemu-system-arm
+        -machine mps2-an385
+        -monitor null
+        -semihosting
+        -semihosting-config enable=on,target=native
+        -kernel ${CMAKE_BINARY_DIR}/rtos_app.elf
+        -serial stdio
+        -nographic
+    DEPENDS rtos_app.elf
+    COMMENT "Launching QEMU..."
 )
