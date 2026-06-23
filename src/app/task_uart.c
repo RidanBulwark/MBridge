@@ -54,24 +54,26 @@ static void vTaskUARTPipeline(void *pvParameters) {
     }
 }
 
-void vUart0_TaskInit(uint8_t *pucQueueStorage, StaticQueue_t *pxQueueStruct)
+/* ── Init: called once from main ── */
+void vUart0_TaskInit(uint8_t  *pucRxQueueStorage,  StaticQueue_t *pxRxQueueStruct,
+                     uint8_t  *pucPipeQueueStorage, StaticQueue_t *pxPipeQueueStruct)
 {
     xUartRxQueue = xQueueCreateStatic(
-        UART0_RX_Q_LEN,
-        UART0_RX_Q_ITEM_SZ,
-        pucQueueStorage,
-        pxQueueStruct
-    );
+        UART0_RX_Q_LEN, UART0_RX_Q_ITEM_SZ,
+        pucRxQueueStorage, pxRxQueueStruct);
     configASSERT(xUartRxQueue != NULL);
 
-    xTaskCreate(vTaskUartIngest,   "UART_In",
-                                UART_INGEST_STACK_WORDS,
-                                NULL, tskIDLE_PRIORITY + 2, NULL);
+    xUartPipelineQueue = xQueueCreateStatic(
+        UART0_RX_Q_LEN, UART0_RX_Q_ITEM_SZ,
+        pucPipeQueueStorage, pxPipeQueueStruct);
+    configASSERT(xUartPipelineQueue != NULL);
 
-    xTaskCreate(vTaskUARTPipeline, "Worker",
-                                UART_PIPELINE_STACK_WORDS,
-                                NULL, tskIDLE_PRIORITY + 1, NULL);
+    configASSERT(xTaskCreate(vTaskUartIngest,   "UART_In",
+                                 UART_INGEST_STACK_WORDS,
+                                 NULL, tskIDLE_PRIORITY + 2, NULL) == pdPASS);
 
-    configASSERT(r1 == pdPASS);
-    configASSERT(r2 == pdPASS);
+    configASSERT(xTaskCreate(vTaskUARTPipeline, "Worker",
+                                 UART_PIPELINE_STACK_WORDS,
+                                 NULL, tskIDLE_PRIORITY + 1, NULL) == pdPASS);
+
 }

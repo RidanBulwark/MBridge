@@ -62,10 +62,10 @@ void vTask_DataProcessorAndMqtt(void *pvParameters) {
             }
 
             snprintf(json_buffer, sizeof(json_buffer), 
-                "{\"device_id\":\"sim_01\", \"temp\":%s, \"hum\":%s, \"t\":%" PRIu32 "}", // use inttypes for correct long int -> str definition
+                "{\"device_id\":\"sim_01\", \"temp\":%s, \"hum\":%s, \"t\":%u}", // use inttypes for correct long int -> str definition
                 float_to_str( sample.temperature, s_temp, sizeof(s_temp) ),
                 float_to_str( sample.humidity,    s_hum,  sizeof(s_hum)  ),
-                sample.timestamp_ms
+                (unsigned int)sample.timestamp_ms
             );
 
             APP_MQTT_Publish("telemetry/sensors", json_buffer);

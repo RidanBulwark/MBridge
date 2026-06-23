@@ -19,11 +19,24 @@ extern void vTask_I2CSensorReader(void *pvParameters);
 extern void vTask_DataProcessorAndMqtt(void *pvParameters);
 
 // UART Memory:
+/* UART RX queue: ISR → ingest task */
+static uint8_t       ucUart0RxStorage[UART0_RX_Q_LEN * UART0_RX_Q_ITEM_SZ];
+static StaticQueue_t xUart0RxQueueStruct;
+
+/* UART pipeline queue: ingest task → pipeline task */
+static uint8_t       ucUart0PipeStorage[UART0_RX_Q_LEN * UART0_RX_Q_ITEM_SZ];
+static StaticQueue_t xUart0PipeQueueStruct;
+
+/* Sensor queue: I2C reader → MQTT publisher */
+#define SENSOR_QUEUE_LENGTH  10
+static uint8_t       ucSensorQueueStorage[SENSOR_QUEUE_LENGTH * sizeof(SensorSample_t)];
+static StaticQueue_t xSensorQueueStruct;
+QueueHandle_t        xSensorQueue = NULL;   /* extern'd by sensor tasks */
+
 static uint8_t       ucUart0Storage[ UART0_RX_Q_LEN * UART0_RX_Q_ITEM_SZ ];
 static StaticQueue_t xUart0QueueStruct;
 
 #define QUEUE_LENGTH 10
-QueueHandle_t xSensorQueue = NULL;
 static StaticQueue_t xQueueBuffer;
 static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
 
@@ -34,7 +47,8 @@ int main(void) {
     UART0_Init(25000000, 115200);
 
     // Init UART Task
-    vUart0_TaskInit(ucUart0Storage, &xUart0QueueStruct);
+    vUart0_TaskInit(ucUart0RxStorage,   &xUart0RxQueueStruct,
+                    ucUart0PipeStorage, &xUart0PipeQueueStruct);
 
     // Static allocation
     xSensorQueue = xQueueCreateStatic(QUEUE_LENGTH, sizeof(SensorSample_t), ucQueueStorage, &xQueueBuffer);
