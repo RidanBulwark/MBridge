@@ -42,20 +42,19 @@ static void prvLoggerUARTInit(void)
 void APP_LOG(const char *format, ...) {
     if(xLogBuffer == NULL) return;
 
-    char stack_buf[LOG_MAX_MSG_LEN] = {0};
+    char buf[LOG_MAX_MSG_LEN] = {0};
     va_list args;
 
     va_start(args, format);
     // Format the string inside the calling task's local stack
-    int len = vsnprintf(stack_buf, LOG_MAX_MSG_LEN, format, args);
+    int len = vsnprintf(buf, sizeof(buf), format, args);
     va_end(args);
 
-    if(len > 0) {
-        if(len >= LOG_MAX_MSG_LEN) {
-            len = LOG_MAX_MSG_LEN - 1; // Clamp to the actual bytes sitting in RAM
-        }
-        xMessageBufferSend(xLogBuffer, stack_buf, len, pdMS_TO_TICKS(2));
-    }
+    if (len <= 0) return;
+    if (len >= (int)sizeof(buf)) len = (int)sizeof(buf) - 1;  /* clamp */
+
+    /* Non-blocking send — drop if logger is backed up rather than stall task */
+    xMessageBufferSend(xLogBuffer, buf, (size_t)len, pdMS_TO_TICKS(2));
 }
 
 // =========================================================================
