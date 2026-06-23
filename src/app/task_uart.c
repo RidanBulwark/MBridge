@@ -7,7 +7,8 @@
 #include "app/task_uart.h"
 
 // Private to this file
-static QueueHandle_t xUartRxQueue = NULL;
+#define UART_INGEST_STACK_WORDS   256
+#define UART_PIPELINE_STACK_WORDS 512   // MQTT/lwIP needs headroom
 
 /* * TASK 1: The Ingest (Producer)
  * Drains the hardware FIFO and shoves bytes into the FreeRTOS Queue.
@@ -35,7 +36,7 @@ static void vTaskUartIngest(void *pvParameters) {
  */
 static void vTaskUARTPipeline(void *pvParameters) {
     (void)pvParameters;
-    
+
     uint8_t rx_byte;
 
     APP_LOG("[UART PIPELINE] Task spun up successfully.\r\n");
@@ -53,19 +54,24 @@ static void vTaskUARTPipeline(void *pvParameters) {
     }
 }
 
-void vUart0_TaskInit(uint8_t *pucQueueStorage, StaticQueue_t *pxQueueStruct) 
-{   
-    // We create the static queue using the memory passed to us from main()
+void vUart0_TaskInit(uint8_t *pucQueueStorage, StaticQueue_t *pxQueueStruct)
+{
     xUartRxQueue = xQueueCreateStatic(
-        UART0_RX_Q_LEN, 
-        UART0_RX_Q_ITEM_SZ, 
-        pucQueueStorage, 
+        UART0_RX_Q_LEN,
+        UART0_RX_Q_ITEM_SZ,
+        pucQueueStorage,
         pxQueueStruct
     );
+    configASSERT(xUartRxQueue != NULL);
 
-    configASSERT(xUartRxQueue);
+    xTaskCreate(vTaskUartIngest,   "UART_In",
+                                UART_INGEST_STACK_WORDS,
+                                NULL, tskIDLE_PRIORITY + 2, NULL);
 
-    // Task creation
-    xTaskCreate(vTaskUartIngest,   "UART_In", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
-    xTaskCreate(vTaskUARTPipeline, "Worker",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
+    xTaskCreate(vTaskUARTPipeline, "Worker",
+                                UART_PIPELINE_STACK_WORDS,
+                                NULL, tskIDLE_PRIORITY + 1, NULL);
+
+    configASSERT(r1 == pdPASS);
+    configASSERT(r2 == pdPASS);
 }
