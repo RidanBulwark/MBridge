@@ -1,11 +1,13 @@
-#include "app_hal.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "logger.h"
+#include "services/logger.h"
+#include "drivers/app_hal.h"
 
 // Stateful mock: simulates an SHT31 sensor warming up over time
 int APP_I2C_ReadRegister(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len) {
+    (void)reg_addr;
+    
     static uint16_t fake_temp_raw = 24000; // Roughly 19°C
     
     if (dev_addr != 0x44 || len < 4) return -1; // NACK

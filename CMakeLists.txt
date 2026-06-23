@@ -54,34 +54,51 @@ set(KERNEL_SOURCES
 # ---------------------------------------------------------------------------
 # Application sources
 # ---------------------------------------------------------------------------
-set(APP_SOURCES
-    ${ROOT}/src/main.c
-    ${ROOT}/src/rtos_tasks.c
-    ${ROOT}/src/app_hal_sim.c
-    ${ROOT}/src/logger.c
-    ${ROOT}/src/data_utils.c
-    ${ROOT}/src/comm_uart.c
-    ${ROOT}/src/task_uart.c
-    ${ROOT}/src/printf-stdarg.c
-    ${ROOT}/src/startup.c
+set(SYS_SOURCES
+    ${ROOT}/src/sys/startup.c
+    ${ROOT}/src/sys/printf-stdarg.c
+    ${ROOT}/src/sys/data_utils.c
+)
+
+set(DRIVER_SOURCES
+    ${ROOT}/src/drivers/app_hal_sim.c
+    ${ROOT}/src/drivers/drv_uart.c
+)
+
+set(SERVICE_SOURCES
+    ${ROOT}/src/services/logger.c
+)
+
+set(APP_LOGIC_SOURCES
+    ${ROOT}/src/app/task_uart.c
+    ${ROOT}/src/app/task_sensors.c
 )
 
 # ---------------------------------------------------------------------------
 # Executable
 # ---------------------------------------------------------------------------
-add_executable(RTOSApp.elf
+add_executable(RTOSApp
+    ${ROOT}/src/main.c
+    ${ROOT}/src/syscalls.c
     ${KERNEL_SOURCES}
-    ${APP_SOURCES}
+    ${SYS_SOURCES}
+    ${DRIVER_SOURCES}
+    ${SERVICE_SOURCES}
+    ${APP_LOGIC_SOURCES}
+)
+
+set_target_properties(RTOSApp PROPERTIES 
+    OUTPUT_NAME "RTOSApp.elf"
 )
 
 # ---------------------------------------------------------------------------
 # Include directories
 # ---------------------------------------------------------------------------
-target_include_directories(RTOSApp.elf PRIVATE
-    ${ROOT}/include             # FreeRTOSConfig.h, app_hal.h, logger.h, data_types.h
-    ${ROOT}/CMSIS               # core_cm3.h, SMM_MPS2.h etc.
-    ${KERNEL_DIR}/include       # FreeRTOS.h, task.h, queue.h, semphr.h etc.
-    ${KERNEL_PORT_DIR}          # portmacro.h
+target_include_directories(RTOSApp PRIVATE
+    ${ROOT}/include             # Master Menu (Forces syntax: #include "drivers/drv_uart.h")
+    ${ROOT}/CMSIS               # Silicon definitions (core_cm3.h)
+    ${KERNEL_DIR}/include       # FreeRTOS Core
+    ${KERNEL_PORT_DIR}          # FreeRTOS Hardware Port (portmacro.h)
 )
 
 # ---------------------------------------------------------------------------
@@ -89,34 +106,34 @@ target_include_directories(RTOSApp.elf PRIVATE
 # ---------------------------------------------------------------------------
 set(LINKER_SCRIPT ${ROOT}/scripts/mps2_m3.ld)
 
-target_link_options(RTOSApp.elf PRIVATE
+target_link_options(RTOSApp PRIVATE
     ${CPU_FLAGS}
     -T${LINKER_SCRIPT}
     -Wl,-Map=${CMAKE_BINARY_DIR}/RTOSApp.map
     -Wl,--gc-sections
     -nostartfiles
     -specs=nano.specs
-    -specs=nosys.specs
+    # -specs=nosys.specs
 )
 
-set_target_properties(RTOSApp.elf PROPERTIES
+set_target_properties(RTOSApp PROPERTIES
     LINK_DEPENDS ${LINKER_SCRIPT}
 )
 
 # ---------------------------------------------------------------------------
 # Post-build: .elf -> .out + print sizes
 # ---------------------------------------------------------------------------
-add_custom_command(TARGET RTOSApp.elf POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE:RTOSApp.elf>
-        ${CMAKE_BINARY_DIR}/RTOSApp.out
-    COMMENT "Copying RTOSApp.elf -> RTOSApp.out"
-)
+# add_custom_command(TARGET RTOSApp POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy
+#         $<TARGET_FILE:RTOSApp>
+#         ${CMAKE_BINARY_DIR}/RTOSApp.out
+#     COMMENT "Copying RTOSApp -> RTOSApp.out"
+# )
 
 find_program(ARM_SIZE arm-none-eabi-size)
 if(ARM_SIZE)
-    add_custom_command(TARGET RTOSApp.elf POST_BUILD
-        COMMAND ${ARM_SIZE} $<TARGET_FILE:RTOSApp.elf>
+    add_custom_command(TARGET RTOSApp POST_BUILD
+        COMMAND ${ARM_SIZE} $<TARGET_FILE:RTOSApp>
         COMMENT "Section sizes:"
     )
 endif()

@@ -1,17 +1,22 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "app_hal.h"
 #include <stdio.h>
+#include <inttypes.h>
 
-#include "logger.h"
-#include "data_types.h"
+#include "FreeRTOSConfig.h"
+#include "sys/data_types.h"
+#include "drivers/app_hal.h"
+#include "drivers/drv_uart.h"
+#include "services/logger.h"
 
 #define SENSOR_I2C_ADDR 0x44 // e.g. an SHT31 Temp Sensor
 
 extern QueueHandle_t xSensorQueue; // Declared in main.c
 
 void vTask_I2CSensorReader(void *pvParameters) {
+    (void)pvParameters;
+
     uint8_t raw_data[4] = {0};;
     SensorSample_t sample;
 
@@ -39,6 +44,8 @@ void vTask_I2CSensorReader(void *pvParameters) {
 }
 
 void vTask_DataProcessorAndMqtt(void *pvParameters) {
+    (void)pvParameters;
+
     SensorSample_t sample;
     char json_buffer[128] = {0};
 
@@ -55,7 +62,7 @@ void vTask_DataProcessorAndMqtt(void *pvParameters) {
             }
 
             snprintf(json_buffer, sizeof(json_buffer), 
-                "{\"device_id\":\"sim_01\", \"temp\":%s, \"hum\":%s, \"t\":%u}",
+                "{\"device_id\":\"sim_01\", \"temp\":%s, \"hum\":%s, \"t\":%" PRIu32 "}", // use inttypes for correct long int -> str definition
                 float_to_str( sample.temperature, s_temp, sizeof(s_temp) ),
                 float_to_str( sample.humidity,    s_hum,  sizeof(s_hum)  ),
                 sample.timestamp_ms

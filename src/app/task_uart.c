@@ -2,32 +2,19 @@
 #include "task.h"
 #include "queue.h"
 
-#include "task_uart.h"
+#include "services/logger.h"
+#include "drivers/drv_uart.h"
+#include "app/task_uart.h"
 
 // Private to this file
 static QueueHandle_t xUartRxQueue = NULL;
 
-void vUart0_TaskInit(uint8_t *pucQueueStorage, StaticQueue_t *pxQueueStruct) 
-{
-    // We create the static queue using the memory passed to us from main()
-    xUartRxQueue = xQueueCreateStatic(
-        UART0_RX_Q_LEN, 
-        UART0_RX_Q_ITEM_SZ, 
-        pucQueueStorage, 
-        pxQueueStruct
-    );
-
-    configASSERT(xUartRxQueue);
-
-    // Task creation
-    xTaskCreate(vTaskUartIngest,   "UART_In", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
-    xTaskCreate(vTaskUARTPipeline, "Worker",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
-}
-
 /* * TASK 1: The Ingest (Producer)
  * Drains the hardware FIFO and shoves bytes into the FreeRTOS Queue.
  */
-void vTaskUartIngest(void *pvParameters) {
+static void vTaskUartIngest(void *pvParameters) {
+    (void)pvParameters;
+
     uint8_t rx_byte;
     const TickType_t xPollRate = pdMS_TO_TICKS(15); 
 
@@ -46,7 +33,9 @@ void vTaskUartIngest(void *pvParameters) {
 /* * TASK 2: The Pipeline Stage (Consumer)
  * Sits fully asleep (0% CPU) until a byte hits the queue. 
  */
-void vTaskUARTPipeline(void *pvParameters) {
+static void vTaskUARTPipeline(void *pvParameters) {
+    (void)pvParameters;
+    
     uint8_t rx_byte;
 
     APP_LOG("[UART PIPELINE] Task spun up successfully.\r\n");
@@ -62,4 +51,21 @@ void vTaskUARTPipeline(void *pvParameters) {
             }
         }
     }
+}
+
+void vUart0_TaskInit(uint8_t *pucQueueStorage, StaticQueue_t *pxQueueStruct) 
+{   
+    // We create the static queue using the memory passed to us from main()
+    xUartRxQueue = xQueueCreateStatic(
+        UART0_RX_Q_LEN, 
+        UART0_RX_Q_ITEM_SZ, 
+        pucQueueStorage, 
+        pxQueueStruct
+    );
+
+    configASSERT(xUartRxQueue);
+
+    // Task creation
+    xTaskCreate(vTaskUartIngest,   "UART_In", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2, NULL);
+    xTaskCreate(vTaskUARTPipeline, "Worker",  configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1, NULL);
 }

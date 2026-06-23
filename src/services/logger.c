@@ -1,6 +1,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "message_buffer.h"
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
@@ -51,6 +52,8 @@ void APP_LOG(const char *format, ...) {
 // 2. THE BACKEND (The Dedicated Consumer Task)
 // =========================================================================
 void vTask_AsyncLogger(void *pvParameters) {
+    (void)pvParameters;
+    
     char rx_buf[LOG_MAX_MSG_LEN] = {0};
 
     for(;;) {
@@ -66,7 +69,7 @@ void vTask_AsyncLogger(void *pvParameters) {
     }
 }
 
-// Call this once inside main() before vTaskStartScheduler()
+// Call this main()
 void APP_LOG_Init(void) {
     prvUARTInit(); // init UART for printing
 

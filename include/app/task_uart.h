@@ -1,6 +1,6 @@
 #pragma once
+
 #include "FreeRTOS.h"
-#include "queue.h"
 
 // Memory requirements are:
 #define UART0_RX_Q_LEN      64
