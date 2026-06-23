@@ -8,12 +8,11 @@
 #include <string.h>
 #include <stdarg.h>
 // Custom headers
-#include "logger.h"
-#include "data_types.h"
-#include "task_uart.h"
-
-// Extern functions
-extern void UART0_Init(uint32_t cpu_freq_hz, uint32_t target_baud);
+#include "sys/data_types.h"
+#include "services/logger.h"
+#include "drivers/drv_uart.h"
+#include "app/task_uart.h"
+#include "app/task_uart.h"
 
 // Extern tasks
 extern void vTask_I2CSensorReader(void *pvParameters);
@@ -31,8 +30,10 @@ static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
 int main(void) {
     APP_LOG_Init();
 
-    // UART Init
+    // Init UART HW
     UART0_Init(25000000, 115200);
+
+    // Init UART Task
     vUart0_TaskInit(ucUart0Storage, &xUart0QueueStruct);
 
     // Static allocation
@@ -54,6 +55,7 @@ void vApplicationMallocFailedHook(void) {
 }
 
 void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName) {
+    (void)pxTask;
     printf("\n[Fatal] Stack Overflow caught in task: %s\n", pcTaskName);
     for(;;);
 }
