@@ -83,8 +83,13 @@ void vTask_AsyncLogger(void *pvParameters) {
 void APP_LOG_Init(void) {
     prvLoggerUARTInit(); // init UART for printing
 
-    xLogBuffer = xMessageBufferCreateStatic(sizeof(ucLogBufferStorage), ucLogBufferStorage, &xLogBufferStruct);
-    
-    // Give the consumer task the LOWEST possible priority (Priority 1)
-    xTaskCreate(vTask_AsyncLogger, "LogSys", 512, NULL, 1, NULL);
+    xLogBuffer = xMessageBufferCreateStatic(
+        sizeof(ucLogBufferStorage),
+        ucLogBufferStorage,
+        &xLogBufferStruct);
+
+    configASSERT(xLogBuffer != NULL);
+
+    xTaskCreate(vTask_AsyncLogger, "LogSys",
+                                512, NULL, 1, NULL);
 }
