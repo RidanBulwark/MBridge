@@ -2,7 +2,8 @@
 #include "CMSDK_CM3.h"
 #include "drivers/drv_uart.h"
 
-QueueHandle_t xUartRxQueue = NULL;
+QueueHandle_t xUartRxQueue       = NULL;   /* ISR  → ingest task  */
+QueueHandle_t xUartPipelineQueue = NULL;   /* ingest → pipeline task */
 
 // Init Function
 void UART0_Init(uint32_t cpu_freq_hz, uint32_t target_baud)
