@@ -28,13 +28,7 @@ static uint8_t       ucUart0PipeStorage[UART0_RX_Q_LEN * UART0_RX_Q_ITEM_SZ];
 static StaticQueue_t xUart0PipeQueueStruct;
 
 /* Sensor queue: I2C reader → MQTT publisher */
-#define SENSOR_QUEUE_LENGTH  10
-static uint8_t       ucSensorQueueStorage[SENSOR_QUEUE_LENGTH * sizeof(SensorSample_t)];
-static StaticQueue_t xSensorQueueStruct;
 QueueHandle_t        xSensorQueue = NULL;   /* extern'd by sensor tasks */
-
-static uint8_t       ucUart0Storage[ UART0_RX_Q_LEN * UART0_RX_Q_ITEM_SZ ];
-static StaticQueue_t xUart0QueueStruct;
 
 #define QUEUE_LENGTH 10
 static StaticQueue_t xQueueBuffer;
