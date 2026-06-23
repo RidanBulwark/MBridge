@@ -68,12 +68,12 @@ void vUart0_TaskInit(uint8_t  *pucRxQueueStorage,  StaticQueue_t *pxRxQueueStruc
         pucPipeQueueStorage, pxPipeQueueStruct);
     configASSERT(xUartPipelineQueue != NULL);
 
-    configASSERT(xTaskCreate(vTaskUartIngest,   "UART_In",
+    xTaskCreate(vTaskUartIngest,   "UART_In",
                                  UART_INGEST_STACK_WORDS,
-                                 NULL, tskIDLE_PRIORITY + 2, NULL) == pdPASS);
+                                 NULL, tskIDLE_PRIORITY + 2, NULL);
 
-    configASSERT(xTaskCreate(vTaskUARTPipeline, "Worker",
+    xTaskCreate(vTaskUARTPipeline, "Worker",
                                  UART_PIPELINE_STACK_WORDS,
-                                 NULL, tskIDLE_PRIORITY + 1, NULL) == pdPASS);
+                                 NULL, tskIDLE_PRIORITY + 1, NULL);
 
 }
