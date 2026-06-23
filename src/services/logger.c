@@ -24,7 +24,6 @@ static StaticMessageBuffer_t xLogBufferStruct;
 #define TX_BUFFER_MASK                        ( 1UL )
 
 #define LOG_BUFFER_TOTAL_SIZE  2048
-#define LOG_MAX_MSG_LEN        128
 
 static MessageBufferHandle_t xLogBuffer = NULL;
 static StaticMessageBuffer_t xLogBufferStruct;
@@ -67,11 +66,13 @@ void vTask_AsyncLogger(void *pvParameters) {
 
     for(;;) {
         // Sleep in Blocked state until a task writes to the buffer
-        size_t bytes_read = xMessageBufferReceive(xLogBuffer, rx_buf, sizeof(rx_buf), portMAX_DELAY);
+        size_t bytes_read = xMessageBufferReceive(
+            xLogBuffer, rx_buf,
+            sizeof(rx_buf) - 1,   /* leave room for terminator */
+            portMAX_DELAY);
 
         if(bytes_read > 0) {
-            // Safely dump to hardware. Because ONLY this task touches stdout/UART, 
-            // it is mathematically impossible for strings to ever get tangled.
+            rx_buf[bytes_read] = '\0'; // Terminate buffer
             printf(rx_buf, 1, bytes_read, stdout);
             fflush(stdout); 
         }
