@@ -1,20 +1,29 @@
 // Measurement Bridge FreeRTOS App (MBridge)
-
+// FreeRTOS headers
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "data_types.h"
-#include "logger.h"
-
+// C headers
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+// Custom headers
+#include "logger.h"
+#include "data_types.h"
+#include "task_uart.h"
 
+// Extern functions
+extern void UART0_Init(uint32_t cpu_freq_hz, uint32_t target_baud);
+
+// Extern tasks
 extern void vTask_I2CSensorReader(void *pvParameters);
 extern void vTask_DataProcessorAndMqtt(void *pvParameters);
 
-#define QUEUE_LENGTH 10
+// UART Memory:
+static uint8_t       ucUart0Storage[ UART0_RX_Q_LEN * UART0_RX_Q_ITEM_SZ ];
+static StaticQueue_t xUart0QueueStruct;
 
+#define QUEUE_LENGTH 10
 QueueHandle_t xSensorQueue = NULL;
 static StaticQueue_t xQueueBuffer;
 static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
@@ -22,6 +31,11 @@ static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
 int main(void) {
     APP_LOG_Init();
 
+    // UART Init
+    UART0_Init(25000000, 115200);
+    vUart0_TaskInit(ucUart0Storage, &xUart0QueueStruct);
+
+    // Static allocation
     xSensorQueue = xQueueCreateStatic(QUEUE_LENGTH, sizeof(SensorSample_t), ucQueueStorage, &xQueueBuffer);
     xTaskCreate(vTask_I2CSensorReader, "I2C_Read", 1024, NULL, 2, NULL);
     xTaskCreate(vTask_DataProcessorAndMqtt, "MQTT_Tx", 1024, NULL, 2, NULL);
