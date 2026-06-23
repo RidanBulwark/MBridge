@@ -40,9 +40,10 @@ void APP_LOG(const char *format, ...) {
     va_end(args);
 
     if(len > 0) {
-        // Push to buffer. If the buffer is totally full, wait a maximum of 5ms 
-        // for the logger task to clear some space, then drop the packet to save the OS.
-        xMessageBufferSend(xLogBuffer, stack_buf, len, pdMS_TO_TICKS(100));
+        if(len >= LOG_MAX_MSG_LEN) {
+            len = LOG_MAX_MSG_LEN - 1; // Clamp to the actual bytes sitting in RAM
+        }
+        xMessageBufferSend(xLogBuffer, stack_buf, len, pdMS_TO_TICKS(2));
     }
 }
 
