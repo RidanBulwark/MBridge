@@ -1,10 +1,20 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "message_buffer.h"
+#include "CMSDK_CM3.h"
 
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+
+#include "services/logger.h"
+#include "drivers/drv_uart.h"
+
+#define LOG_MAX_MSG_LEN   128U
+#define LOG_BUFFER_BYTES  512U
+
+static uint8_t          ucLogBufferStorage[LOG_BUFFER_BYTES];
+static StaticMessageBuffer_t xLogBufferStruct;
 
 #define UART0_ADDRESS                         ( 0x40004000UL )
 #define UART0_DATA                            ( *( ( ( volatile uint32_t * ) ( UART0_ADDRESS + 0UL ) ) ) )
@@ -17,13 +27,13 @@
 #define LOG_MAX_MSG_LEN        128
 
 static MessageBufferHandle_t xLogBuffer = NULL;
-static uint8_t ucLogBufferStorage[ LOG_BUFFER_TOTAL_SIZE ];
 static StaticMessageBuffer_t xLogBufferStruct;
 
-static void prvUARTInit( void )
+static void prvLoggerUARTInit(void)
 {
-    UART0_BAUDDIV = 16;
-    UART0_CTRL = 1;
+    CMSDK_UART0->CTRL    = 0;
+    CMSDK_UART0->BAUDDIV = 25000000U / 115200U;   /* 217 — explicit */
+    CMSDK_UART0->CTRL    = UART_CTRL_TXEN | UART_CTRL_RXEN;
 }
 
 // =========================================================================
@@ -71,7 +81,7 @@ void vTask_AsyncLogger(void *pvParameters) {
 
 // Call this main()
 void APP_LOG_Init(void) {
-    prvUARTInit(); // init UART for printing
+    prvLoggerUARTInit(); // init UART for printing
 
     xLogBuffer = xMessageBufferCreateStatic(sizeof(ucLogBufferStorage), ucLogBufferStorage, &xLogBufferStruct);
     

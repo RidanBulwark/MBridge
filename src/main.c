@@ -44,7 +44,7 @@ int main(void) {
     APP_LOG_Init();
 
     // Init UART HW
-    UART0_Init(25000000, 115200);
+    UART0_Init(25000000U, 115200U);
 
     // Init UART Task
     vUart0_TaskInit(ucUart0RxStorage,   &xUart0RxQueueStruct,
@@ -54,6 +54,8 @@ int main(void) {
     xSensorQueue = xQueueCreateStatic(QUEUE_LENGTH, sizeof(SensorSample_t), ucQueueStorage, &xQueueBuffer);
     xTaskCreate(vTask_I2CSensorReader, "I2C_Read", 1024, NULL, 2, NULL);
     xTaskCreate(vTask_DataProcessorAndMqtt, "MQTT_Tx", 1024, NULL, 2, NULL);
+ 
+    APP_LOG("[main] All tasks created. Starting scheduler.\r\n");
  
     vTaskStartScheduler();
     for(;;); // Execution will never reach here
