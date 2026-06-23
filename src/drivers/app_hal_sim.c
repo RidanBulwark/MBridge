@@ -28,6 +28,6 @@ int APP_MQTT_Publish(const char *topic, const char *payload) {
     // In a pure POSIX simulator, we can literally call out to the host OS!
     // In raw ARM QEMU, we print to the semi-hosting UART Console.
     
-    APP_LOG("[SIM-MQTT Broker Trap] Topic: '%s' | Payload: %s\n", topic, payload);
+    APP_LOG("[SIM-MQTT SIM] Topic: '%s' | Payload: %s\n", topic, payload);
     return 0;
 }
