@@ -13,46 +13,47 @@
 /* * TASK 1: The Ingest (Producer)
  * Drains the hardware FIFO and shoves bytes into the FreeRTOS Queue.
  */
-static void vTaskUartIngest(void *pvParameters) {
+static void vTaskUartIngest(void *pvParameters)
+{
     (void)pvParameters;
-
     uint8_t rx_byte;
-    const TickType_t xPollRate = pdMS_TO_TICKS(15); 
+    APP_LOG("[UART Ingest] Task spun up.\r\n");
 
-    for(;;) {
-        // Drain all bytes currently sitting in the CMSDK hardware buffer
-        while (UART0_GetByte(&rx_byte)) {
-            // Push to pipeline. If pipeline is backed up, don't drop the byte; wait 5ms.
-            xQueueSendToBack(xUartRxQueue, &rx_byte, pdMS_TO_TICKS(5));
+    for (;;)
+    {
+        /* Block until ISR deposits a byte — 0% CPU while idle */
+        if (xQueueReceive(xUartRxQueue, &rx_byte, portMAX_DELAY) == pdPASS)
+        {
+            xQueueSendToBack(xUartPipelineQueue, &rx_byte, pdMS_TO_TICKS(5));
         }
-        
-        // Yield CPU to the rest of the RTOS
-        vTaskDelay(xPollRate);
     }
 }
 
-/* * TASK 2: The Pipeline Stage (Consumer)
- * Sits fully asleep (0% CPU) until a byte hits the queue. 
- */
-static void vTaskUARTPipeline(void *pvParameters) {
+/* ── Task 2: pipeline stage — transform then hand to MQTT ── */
+static void vTaskUARTPipeline(void *pvParameters)
+{
     (void)pvParameters;
-
     uint8_t rx_byte;
 
-    APP_LOG("[UART PIPELINE] Task spun up successfully.\r\n");
+    APP_LOG("[UART PIPELINE] Task spun up.\r\n");
 
-    for(;;) {
-        if (xQueueReceive(xUartRxQueue, &rx_byte, portMAX_DELAY) == pdPASS) {
-            
-            APP_LOG("[UART PIPELINE] Ingested raw byte: '0x%02X'\r\n", rx_byte);
+    for (;;)
+    {
+        if (xQueueReceive(xUartPipelineQueue, &rx_byte, portMAX_DELAY) == pdPASS)
+        {
+            APP_LOG("[UART PIPELINE] Raw byte: 0x%02X\r\n", rx_byte);
 
-            if (rx_byte >= 'a' && rx_byte <= 'z') {
-                rx_byte -= 32; 
-                APP_LOG("[UART PIPELINE] Transformed to Uppercase: '%c'\r\n", rx_byte);
+            if (rx_byte >= 'a' && rx_byte <= 'z')
+            {
+                rx_byte -= 32;
+                APP_LOG("[UART PIPELINE] Uppercased: '%c'\r\n", rx_byte);
             }
+
+            /* TODO: xQueueSendToBack(xMqttPublishQueue, &rx_byte, ...) */
         }
     }
 }
+
 
 /* ── Init: called once from main ── */
 void vUart0_TaskInit(uint8_t  *pucRxQueueStorage,  StaticQueue_t *pxRxQueueStruct,
