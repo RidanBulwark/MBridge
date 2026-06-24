@@ -34,6 +34,8 @@ extern void xPortSysTickHandler( void );
 extern void TIMER0_Handler( void );
 extern void TIMER1_Handler( void );
 
+extern void UARTRX0_Handler( void ); // UART0 RX handler defined in drv_uart.c
+
 /* Exception handlers. */
 static void HardFault_Handler( void ) __attribute__( ( naked ) );
 static void Default_Handler( void ) __attribute__( ( naked ) );
@@ -61,7 +63,7 @@ const uint32_t* isr_vector[] __attribute__((section(".isr_vector"), used)) =
     0, // reserved   -3
     ( uint32_t * ) &xPortPendSVHandler, // PendSV handler       -2
     ( uint32_t * ) &xPortSysTickHandler,// SysTick_Handler      -1
-    0,
+    ( uint32_t * ) &UARTRX0_Handler, // UART0 Rx Handler
     0,
     0,
     0,
