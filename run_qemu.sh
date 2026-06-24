@@ -14,10 +14,10 @@ echo -e "\033[1;33m[BASH]\033[0m Booting virtual ARM Cortex-M3 (MPS2-AN385)..."
 echo "------------------------------------------------------------------"
 
 
-qemu-system-arm -machine mps2-an385 -cpu cortex-m3 -kernel $ELF_PATH\
-                 -monitor none -nographic -serial stdio \
-                -semihosting \
-                -semihosting-config enable=on,target=native
+qemu-system-arm -machine mps2-an385 -cpu cortex-m3 -kernel "$ELF_PATH" \
+    -nographic \
+    -serial stdio \
+    -monitor none
 
 # ANATOMY OF THESE FLAGS (For your knowledge):
 # -machine mps2-an385 : Tells QEMU the exact Memory Map of the motherboard to fake.
