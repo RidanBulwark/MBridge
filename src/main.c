@@ -48,7 +48,6 @@ int main(void) {
     xTaskCreate(vTask_DataProcessorAndMqtt, "MQTT_Tx", 1024, NULL, 2, NULL);
  
     APP_LOG("[main] All tasks created. Starting scheduler.\r\n");
-    UART_DebugPrintf("UART_DebugPrintf\r\n");
 
     vTaskStartScheduler();
     for(;;); // Execution will never reach here
