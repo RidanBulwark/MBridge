@@ -35,22 +35,21 @@ static StaticQueue_t xQueueBuffer;
 static uint8_t ucQueueStorage[QUEUE_LENGTH * sizeof(SensorSample_t)];
 
 int main(void) {
-    APP_LOG_Init();
-
     // Init UART HW
     UART0_Init(25000000U, 115200U);
-
     // Init UART Task
     vUart0_TaskInit(ucUart0RxStorage,   &xUart0RxQueueStruct,
-                    ucUart0PipeStorage, &xUart0PipeQueueStruct);
-
+        ucUart0PipeStorage, &xUart0PipeQueueStruct);
+    
+    APP_LOG_Init();
     // Static allocation
     xSensorQueue = xQueueCreateStatic(QUEUE_LENGTH, sizeof(SensorSample_t), ucQueueStorage, &xQueueBuffer);
     xTaskCreate(vTask_I2CSensorReader, "I2C_Read", 1024, NULL, 2, NULL);
     xTaskCreate(vTask_DataProcessorAndMqtt, "MQTT_Tx", 1024, NULL, 2, NULL);
  
     APP_LOG("[main] All tasks created. Starting scheduler.\r\n");
- 
+    UART_DebugPrintf("UART_DebugPrintf\r\n");
+
     vTaskStartScheduler();
     for(;;); // Execution will never reach here
     return 0;
@@ -60,13 +59,13 @@ int main(void) {
    MANDATORY FREERTOS HOOKS (Triggered by our settings in FreeRTOSConfig.h)
    ------------------------------------------------------------------------- */
 void vApplicationMallocFailedHook(void) {
-    printf("\n[Fatal] RTOS Malloc Failed!\n");
+    APP_LOG("\n[Fatal] RTOS Malloc Failed!\n");
     for(;;);
 }
 
 void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName) {
     (void)pxTask;
-    printf("\n[Fatal] Stack Overflow caught in task: %s\n", pcTaskName);
+    APP_LOG("\n[Fatal] Stack Overflow caught in task: %s\n", pcTaskName);
     for(;;);
 }
 
